@@ -5,19 +5,19 @@ const services = [
   {
     title: "Flight Booking",
     description: "Domestic & International flights at best prices",
-    image: "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=800&q=80",
+    image: "7c6afac593d1567f326173a40f3adfc9c6284f1e.jpg",
     icon: <Plane className="text-white" size={20} />,
   },
   {
     title: "Bus Booking",
     description: "Book AC/Non-AC bus tickets with seat selection",
-    image: "default_product.jpg",
+    image: "ImageWithFallback (1).png",
     icon: <Bus className="text-white" size={20} />,
   },
   {
     title: "Launch Booking",
     description: "River route tickets with cabin selection",
-    image: "default_product.jpg",
+    image: "ImageWithFallback (2).png",
     icon: <Ship className="text-white" size={20} />,
   },
   {
@@ -29,13 +29,13 @@ const services = [
   {
     title: "Tour Packages",
     description: "Curated tour packages for unforgettable experiences",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    image: "Rectangle 10.png",
     icon: <MapPin className="text-white" size={20} />,
   },
   {
     title: "Visa Processing",
     description: "Fast & reliable visa processing services",
-    image: "default_product.jpg",
+    image: "ImageWithFallback.png",
     icon: <FileText className="text-white" size={20} />,
   },
 ];

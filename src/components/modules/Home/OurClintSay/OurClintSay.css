@@ -1,0 +1,13 @@
+/* OurClintSay.css */
+.bgCustom {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  background: rgba(107, 136, 209, 0.541);
+  border-radius: 50%;
+  filter: blur(120px);
+  transform: translateX(-50%);
+  z-index: 0;
+}
