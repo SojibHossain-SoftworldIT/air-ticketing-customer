@@ -1,10 +1,16 @@
 "use client";
-import { Player } from "@lottiefiles/react-lottie-player";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+// ✅ Dynamically import Player to disable SSR
+const Player = dynamic(
+  () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
+  { ssr: false }
+);
 
 const NotFound = () => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-200 to-gray-300 px-6">
+    <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-gray-200 to-gray-300 px-6">
       <div className="bg-white border border-gray-100 rounded-3xl shadow-xl max-w-6xl w-full min-h-[75vh] grid grid-cols-1 md:grid-cols-2 overflow-hidden">
         {/* Left Side — Text */}
         <div className="flex flex-col justify-center p-10 md:p-16 text-left">

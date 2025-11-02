@@ -1,4 +1,4 @@
-import BusinessClass from "@/components/modules/Home/BusinessClass";
+import BusinessClass from "@/components/common/BusinessClass/main/BusinessClass";
 import DownloadOurApp from "@/components/modules/Home/DownloadOurApp";
 import FrequentlyAskedQuestions from "@/components/modules/Home/FrequentlyAskedQuestions";
 import Hero from "@/components/modules/Home/Hero";
