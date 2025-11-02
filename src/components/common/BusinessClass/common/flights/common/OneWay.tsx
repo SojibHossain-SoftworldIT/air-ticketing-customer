@@ -45,7 +45,7 @@ const OneWay = () => {
             />
             <button
               type="button"
-              className="absolute -right-8 top-1/2 -translate-y-1/2 z-40 bg-[#E6EAF6] p-2 rounded-full shadow-sm hover:bg-blue-700"
+              className="absolute -right-8 top-1/2 -translate-y-1/2 z-1 bg-[#E6EAF6] p-2 rounded-full shadow-sm hover:bg-blue-700"
             >
               <ArrowLeftRight size={20} color="#0028A8" />
             </button>

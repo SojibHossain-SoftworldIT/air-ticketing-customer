@@ -5,16 +5,7 @@ import {
     ArrowLeftRight,
     Search,
     Info,
-    Bus,
-    Hotel,
-    Package,
-    HandCoins,
-    Mail,
-    MapPin, X, Plus,
-    Minus,
-    User,
-    Baby,
-    Users
+  X, Plus,
 } from "lucide-react";
 import { FaChild } from 'react-icons/fa';
 
