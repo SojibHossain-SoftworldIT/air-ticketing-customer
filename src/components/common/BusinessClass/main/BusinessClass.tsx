@@ -6,6 +6,9 @@ import {
   Hotel,
   Package,
   HandCoins,
+  FileText,
+  TrainFront,
+  Ship,
 
 } from "lucide-react";
 import Flights from "../common/flights/main/Flights";
@@ -14,10 +17,10 @@ const BusinessClass = () => {
   const Tabs = [
     { name: "Flights", icon: <Plane size={16} /> },
     { name: "Bus", icon: <Bus size={16} /> },
-    { name: "Launch", icon: <Plane size={16} /> },
-    { name: "Train", icon: <Plane size={16} /> },
+    { name: "Launch", icon: <Ship size={16} /> },
+    { name: "Train", icon: <TrainFront size={16} /> },
     { name: "Hotel", icon: <Hotel size={16} /> },
-    { name: "Visa", icon: <Plane size={16} /> },
+    { name: "Visa", icon: <FileText size={16} /> },
     { name: "Packages", icon: <Package size={16} /> },
     { name: "Offers", icon: <HandCoins size={16} /> },
   ]

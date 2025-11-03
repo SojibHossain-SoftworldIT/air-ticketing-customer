@@ -15,7 +15,8 @@ import {
     Minus,
     User,
     Baby,
-    Users
+    Users,
+    Repeat2
 } from "lucide-react";
 import { FaChild } from 'react-icons/fa';
 import OneWay from '../common/OneWay';
@@ -26,7 +27,7 @@ import Btn from '@/components/common/Buttom/Btn';
 const Flights = () => {
     const tags = [
         { name: "One-way", icon: <Plane size={16} /> },
-        { name: "Round Trip", icon: <Plane size={16} /> },
+        { name: "Round Trip", icon: <Repeat2 size={16} /> },
         { name: "Multi-city", icon: <MapPin size={16} /> }
     ];
     const [flightList, setFlightList] = useState([
@@ -91,8 +92,8 @@ const Flights = () => {
                                 </h2>
                                 <button
                                     onClick={() => {
-                                        setAdd(false); 
-                                        setShowPassengers(false); 
+                                        setAdd(false);
+                                        setShowPassengers(false);
                                     }}
                                     className="ml-auto bg-[#063BE8] px-4 py-2 rounded-lg text-white hover:text-gray-200"
                                 >

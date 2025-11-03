@@ -198,3 +198,9 @@ button {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Calendar container */
+.rdrCalendarWrapper {
+  border-radius: 56px !important;
+  font-family: "Inter", sans-serif !important;
+}
