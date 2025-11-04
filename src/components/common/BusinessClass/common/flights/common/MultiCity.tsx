@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import {
     Calendar,
     Plane,
@@ -10,6 +11,8 @@ import {
 import { FaChild } from 'react-icons/fa';
 
 const MultiCity = ( {flightList , removeFlight , addFlight } : any) => {
+      const [showDropdown1, setShowDropdown1] = useState(false);
+      const [showDropdown2, setShowDropdown2] = useState(false);
     
   return (
    <>
