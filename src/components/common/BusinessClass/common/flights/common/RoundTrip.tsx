@@ -246,12 +246,7 @@ const RoundTrip = () => {
         </div>
       </div>
 
-      {/* Button */}
-      <div className="flex justify-end mt-8">
-        <button className="bg-[#0028A8] hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-md flex items-center gap-2">
-          <Search size={18} /> Find Ticket
-        </button>
-      </div>
+    
     </>
   );
 };

@@ -1,17 +1,11 @@
 "use client"
 import React, { useState } from 'react'
 import {
-    Calendar,
     Plane,
-    ArrowLeftRight,
     Search,
     Info,
-    Bus,
-    Hotel,
-    Package,
-    HandCoins,
-    Mail,
-    MapPin, X, Plus,
+    MapPin, 
+    Plus,
     Minus,
     User,
     Baby,
@@ -24,7 +18,7 @@ import RoundTrip from '../common/RoundTrip';
 import MultiCity from '../common/MultiCity';
 import Btn from '@/components/common/Buttom/Btn';
 
-const Flights = () => {
+const Flights = ({setFindTicket} : any) => {
     const tags = [
         { name: "One-way", icon: <Plane size={16} /> },
         { name: "Round Trip", icon: <Repeat2 size={16} /> },
@@ -218,16 +212,31 @@ const Flights = () => {
 
             {/* Show fields depending on trip type */}
             {tripType === "One-way" && (
-                <OneWay />
+                <>
+                    <OneWay />
+                    <div className="flex justify-end mt-8">
+                        <button onClick={()=>setFindTicket((e : any)  => !e)} className="bg-[#0028A8] hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-md flex items-center gap-2">
+                            <Search size={18} /> Find Ticket
+                        </button>
+                    </div>
+                </>
             )}
 
             {/* Round Trip or Multi-city — you can add more layouts here */}
             {tripType === "Round Trip" && (
-                <RoundTrip />
+                <>
+                    <RoundTrip />
+                    <div className="flex justify-end mt-8">
+                        <button onClick={()=>setFindTicket(( e : any)  => !e)} className="bg-[#0028A8] hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-md flex items-center gap-2">
+                            <Search size={18} /> Find Ticket
+                        </button>
+                    </div>
+                </>
             )}
             {tripType === "Multi-city" && (
                 <MultiCity flightList={flightList} removeFlight={removeFlight} addFlight={addFlight} />
             )}
+
         </div>
     )
 }
