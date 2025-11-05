@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import FlightDetails from "./FlightDetails";
 import { FaPlaneDeparture } from "react-icons/fa";
+import Link from "next/link";
 
 const FlightCard = () => {
   const [selectedFlight, setSelectedFlight] = useState(null);
@@ -180,9 +181,12 @@ const FlightCard = () => {
                   <p className="text-xs text-gray-500">per passenger</p>
                 </div>
                 <div className="w-full flex flex-col items-center">
+                  <Link href={"/PersonalDetails"}>
                   <button className="w-full bg-[#063BE8] hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors">
                     Select Flight
                   </button>
+                  
+                  </Link>
                   <button
                     onClick={() => setSelectedFlight(flight)}
                     className="text-[#063BE8] text-lg font-medium mt-2 flex items-center gap-1 hover:text-blue-700"
