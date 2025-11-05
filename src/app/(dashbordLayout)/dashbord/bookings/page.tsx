@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import {
   FaPlaneDeparture,
@@ -51,7 +52,7 @@ const Page = () => {
           <div className="border border-gray-200 rounded-xl p-5 mb-6 ">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
               <div className="flex items-center space-x-3">
-                <img
+                <Image
                   src="https://flagcdn.com/w40/bd.png"
                   alt="Bangladesh"
                   className="w-8 h-5 rounded"
@@ -127,7 +128,7 @@ const Page = () => {
         <div className="border border-gray-200 rounded-xl p-5 mb-6 ">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
             <div className="flex items-center space-x-3">
-              <img
+              <Image
                 src="https://flagcdn.com/w40/th.png"
                 alt="Thailand"
                 className="w-8 h-5 rounded"
@@ -201,7 +202,7 @@ const Page = () => {
             No cancelled bookings
           </h3>
           <p className="text-gray-500 text-sm mb-6">
-            You don't have any cancelled flight bookings
+            You don&apos;t have any cancelled flight bookings
           </p>
           <button className="flex items-center gap-2 bg-[#001E63] text-white px-5 py-2 rounded-lg hover:bg-[#002b8c] transition-all">
             <FaSearch />

@@ -63,8 +63,8 @@ const OneWay = () => {
                 <p>Popular Destinations</p>
               </div>
 
-              {popularDestinations.map((dest) => (
-                <div className='px-2 hover:bg-blue-100'>
+              {popularDestinations.map((dest, idx) => (
+                <div key={idx} className='px-2 hover:bg-blue-100'>
                   <div
                     key={dest.code}
                     className="px-2 py-2  cursor-pointer flex justify-between flex-col border-b "
@@ -115,8 +115,8 @@ const OneWay = () => {
                 <p>Popular Destinations</p>
               </div>
 
-              {popularDestinations.map((dest) => (
-                <div className='px-2 hover:bg-blue-100'>
+              {popularDestinations.map((dest, idx) => (
+                <div key={idx} className='px-2 hover:bg-blue-100'>
                   <div
                     key={dest.code}
                     className="px-2 py-2  cursor-pointer flex justify-between flex-col border-b "

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 "use client";
 import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/navber/mainFile/Navber";
