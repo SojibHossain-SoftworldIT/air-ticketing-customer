@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
 import {
   FaPlaneDeparture,
@@ -52,7 +51,7 @@ const Page = () => {
           <div className="border border-gray-200 rounded-xl p-5 mb-6 ">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
               <div className="flex items-center space-x-3">
-                <Image
+                <img
                   src="https://flagcdn.com/w40/bd.png"
                   alt="Bangladesh"
                   className="w-8 h-5 rounded"
@@ -128,7 +127,7 @@ const Page = () => {
         <div className="border border-gray-200 rounded-xl p-5 mb-6 ">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
             <div className="flex items-center space-x-3">
-              <Image
+              <img
                 src="https://flagcdn.com/w40/th.png"
                 alt="Thailand"
                 className="w-8 h-5 rounded"
