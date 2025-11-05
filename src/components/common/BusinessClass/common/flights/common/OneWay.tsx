@@ -86,17 +86,24 @@ const OneWay = () => {
               <div className="bg-[#E6EBFD] px-4 py-2">
                 <p>Popular Destinations</p>
               </div>
-              {popularDestinations.map((dest) => (
-                <div
-                  key={dest.code}
-                  onClick={() => handleSelect1(dest.city, dest.code)}
-                  className="px-3 py-2 hover:bg-blue-100 cursor-pointer border-b flex justify-between items-center"
-                >
-                  <div>
-                    <p>{dest.city}</p>
-                    <p className="text-gray-400 text-sm">
-                      {dest.code} – {dest.country}
-                    </p>
+
+              {popularDestinations.map((dest, idx) => (
+                <div key={idx} className='px-2 hover:bg-blue-100'>
+                  <div
+                    key={dest.code}
+                    className="px-2 py-2  cursor-pointer flex justify-between flex-col border-b "
+                    onClick={() => handleSelect1(dest.city, dest.code)}
+                  >
+                    <div className='flex justify-between items-center '>
+                      <div>
+                        <p>{dest.city}</p>
+                        <p className="text-gray-400 text-sm">{dest.code} – {dest.country}</p>
+                      </div>
+                      <div>
+                        <ChevronRight size={26} color='#CED4DE' />
+                      </div>
+
+                    </div>
                   </div>
                   <ChevronRight size={20} color="#CED4DE" />
                 </div>
@@ -131,17 +138,24 @@ const OneWay = () => {
               <div className="bg-[#E6EBFD] px-4 py-2">
                 <p>Popular Destinations</p>
               </div>
-              {popularDestinations.map((dest) => (
-                <div
-                  key={dest.code}
-                  onClick={() => handleSelect2(dest.city, dest.code)}
-                  className="px-3 py-2 hover:bg-blue-100 cursor-pointer border-b flex justify-between items-center"
-                >
-                  <div>
-                    <p>{dest.city}</p>
-                    <p className="text-gray-400 text-sm">
-                      {dest.code} – {dest.country}
-                    </p>
+
+              {popularDestinations.map((dest, idx) => (
+                <div key={idx} className='px-2 hover:bg-blue-100'>
+                  <div
+                    key={dest.code}
+                    className="px-2 py-2  cursor-pointer flex justify-between flex-col border-b "
+                    onClick={() => handleSelect2(dest.city, dest.code)}
+                  >
+                    <div className='flex justify-between items-center '>
+                      <div>
+                        <p>{dest.city}</p>
+                        <p className="text-gray-400 text-sm">{dest.code} – {dest.country}</p>
+                      </div>
+                      <div>
+                        <ChevronRight size={26} color='#CED4DE' />
+                      </div>
+
+                    </div>
                   </div>
                   <ChevronRight size={20} color="#CED4DE" />
                 </div>
