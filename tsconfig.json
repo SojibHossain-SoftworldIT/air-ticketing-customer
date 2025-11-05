@@ -29,7 +29,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(dashboardLayout)/SEOPage"
+    "src/app/(dashboardLayout)/SEOPage",
+    "global.d.ts"
   ],
   "exclude": ["node_modules"]
 }
