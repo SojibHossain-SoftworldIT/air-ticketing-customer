@@ -214,11 +214,7 @@ const OneWay = () => {
         </div>
       </div>
 
-      <div className="flex justify-end mt-8">
-        <button onClick={()=>setFindTicket(true)} className="bg-[#0028A8] hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-md flex items-center gap-2">
-          <Search size={18} /> Find Ticket
-        </button>
-      </div>
+      
     </>
   );
 };

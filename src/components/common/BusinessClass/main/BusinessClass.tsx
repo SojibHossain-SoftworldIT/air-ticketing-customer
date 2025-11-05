@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import Flights from "../common/flights/main/Flights";
 
-const BusinessClass = () => {
+const BusinessClass = ({setFindTicket} : any) => {
   const Tabs = [
     { name: "Flights", icon: <Plane size={16} /> },
     { name: "Bus", icon: <Bus size={16} /> },
@@ -50,7 +50,7 @@ const BusinessClass = () => {
 
         {/* Flights Content */}
         {selectedTab === "Flights" && (
-          <Flights />
+          <Flights setFindTicket  = {setFindTicket}/>
         )}
         
         {selectedTab !== "Flights" && (
