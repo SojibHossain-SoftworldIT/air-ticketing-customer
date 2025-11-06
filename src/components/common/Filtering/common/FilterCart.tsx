@@ -9,9 +9,9 @@ import {
 } from "lucide-react";
 import { FaPlaneDeparture } from "react-icons/fa";
 import Link from "next/link";
+import FlightDetails from "./FlightDetails";
 
 const FlightCard = ({ flights, selectedFlight, setSelectedFlight, compareList , setCompareList, compareMode }: any) => {
-  console.log(compareMode)
   return (
     <div className="w-full flex flex-col gap-4">
       {flights.map((flight: any) => (
@@ -174,6 +174,18 @@ const FlightCard = ({ flights, selectedFlight, setSelectedFlight, compareList , 
           </div>
         </div>
       ))}
+      
+      {/* Right Side — Flight Details */}
+      {selectedFlight && (
+        <div>
+          <div className="fixed top-0 right-0 w-full h-full z-50   bg-black/40 text-white overflow-y-auto transition-all duration-300">
+            <div className=" relative flex justify-end">
+              {/* Flight details content */}
+              <FlightDetails setSelectedFlight = {setSelectedFlight} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
