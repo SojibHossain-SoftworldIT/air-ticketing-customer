@@ -57,7 +57,7 @@ const FlightDetails = ({ setSelectedFlight }: any) => {
           <div>
             <p className="text-3xl font-normal text-gray-800">09:45</p>
             <p className="text-sm text-gray-500">CXB</p>
-            <p className="text-xs text-gray-400">Cox's Bazar</p>
+            <p className="text-xs text-gray-400">Cox&apos;s Bazar</p>
           </div>
         </div>
       </div>
