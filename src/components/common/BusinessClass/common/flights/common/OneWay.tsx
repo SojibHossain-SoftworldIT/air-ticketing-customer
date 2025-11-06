@@ -1,12 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import {
-  Calendar,
-  Plane,
   ArrowLeftRight,
-  Search,
   Info,
-  Mail,
   ChevronRight,
   PlaneTakeoff,
   PlaneLanding,
