@@ -72,7 +72,7 @@ const RegisterPage = () => {
 
           {/* Main Card */}
           <div className="bg-white shadow-md rounded-[20px] w-full p-7 mb-7">
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence mode="wait">
 
               {/* STEP 1: LOGIN */}
               {step === "login" && (
@@ -223,7 +223,9 @@ const RegisterPage = () => {
                     {otp.map((o, i) => (
                       <input
                         key={i}
-                        ref={(el) => (otpRefs.current[i] = el!)}
+                        ref={(el) => {
+                          otpRefs.current[i] = el!;
+                        }}
                         type="text"
                         maxLength={1}
                         className="w-[80px] h-[80px] border-2 border-[#F04438] rounded-lg p-[10px_8px] text-center text-2xl focus:ring-2 focus:ring-blue-400"
