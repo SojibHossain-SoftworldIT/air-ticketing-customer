@@ -15,8 +15,6 @@ const ContainerPersonalDetails = () => {
       <LeftPersonalDetails/>
       </div>
     </div>
-
-
     </div>
   )
 }
