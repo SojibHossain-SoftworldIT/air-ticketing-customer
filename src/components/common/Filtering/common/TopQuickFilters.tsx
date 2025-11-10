@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Check, Zap, Tag, AlarmClock, Star } from "lucide-react";
+import { Tab } from "@/components/modules/Home/Hero";
 
-const TopQuickFilters: React.FC = () => {
+interface TopQuickFiltersProps {
+  selectedTab: Tab;
+} 
+
+const TopQuickFilters: React.FC<TopQuickFiltersProps> = ({ selectedTab }) => {
   const [timeLeft, setTimeLeft] = useState(29 * 60 + 15);
   const [selected, setSelected] = useState<"cheapest" | "fastest" | null>("fastest");
 
@@ -24,7 +29,7 @@ const TopQuickFilters: React.FC = () => {
   return (
     <div className="flex gap-6 w-full">
       {/* Session Timer */}
-      <div className="flex flex-col w-[506px] gap-3 rounded-[12px] shadow-md p-4 bg-[#E6EBFD]">
+      <div className="flex flex-col w-full gap-3 rounded-[12px] shadow-md p-4 bg-[#E6EBFD]">
         <div className="flex justify-between items-center text-sm text-gray-500">
           <div>
             <span className="flex items-center gap-2 text-[#000B2F] font-medium">
@@ -50,79 +55,86 @@ const TopQuickFilters: React.FC = () => {
         </div>
       </div>
 
-      {/* Quick Filters */}
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          <Star size={16} color="#063BE8" />
-          <p className="text-[#000B2F] font-medium">Quick Filters</p>
-        </div>
 
-        <div className="flex gap-3">
-          {/* Cheapest First */}
-          <button
-            onClick={() => setSelected("cheapest")}
-            className={`p-3 w-[188px] h-[70px] rounded-xl border transition-all relative ${selected === "cheapest"
-              ? "border-[#B2C2F8] bg-[#E6EBFD] hover:border-blue-400"
-              : "border-[#B2C2F8] bg-[#E6EBFD] hover:border-blue-400"
-              }`}
-          >
-            <div className=" flex items-center  gap-2 ">
-              <div>
-                <Tag className="w-4 h-4 text-orange-500" />
-              </div>
-              <div className="text-left">
-                <p className="text-[15px] font-medium text-[#0F172A]">
-                  Cheapest First
-                </p>
-                <p className="text-xs text-[#6B7280] mt-1">
-                  Starting from ৳3,500
-                </p>
+      {
+        selectedTab !== "Bus" && (
 
-              </div>
+
+          <div className="flex  w-[400px] flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <Star size={16} color="#063BE8" />
+              <p className="text-[#000B2F] font-medium">Quick Filters</p>
             </div>
-             <div className="absolute top-7 right-3 w-4 h-4 rounded-sm shadow border border-[#E6EBFD] bg-[#B2C2F8] flex items-center justify-center"></div>
 
-            {selected === "cheapest" && (
-              <div className="absolute top-7 right-3 w-4 h-4 rounded-sm bg-[#063BE8] flex items-center justify-center">
-                <Check className="w-3 h-3 text-white" />
-              </div>
-              
-            )}
-          </button>
+            <div className="flex gap-3">
+              {/* Cheapest First */}
+              <button
+                onClick={() => setSelected("cheapest")}
+                className={`p-3 w-[188px] h-[70px] rounded-xl border transition-all relative ${selected === "cheapest"
+                  ? "border-[#B2C2F8] bg-[#E6EBFD] hover:border-blue-400"
+                  : "border-[#B2C2F8] bg-[#E6EBFD] hover:border-blue-400"
+                  }`}
+              >
+                <div className=" flex items-center  gap-2 ">
+                  <div>
+                    <Tag className="w-4 h-4 text-orange-500" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[15px] font-medium text-[#0F172A]">
+                      Cheapest First
+                    </p>
+                    <p className="text-xs text-[#6B7280] mt-1">
+                      Starting from ৳3,500
+                    </p>
 
-          {/* Fastest First */}
-          <button
-            onClick={() => setSelected("fastest")}
-            className={`p-3 w-[188px] h-[70px] rounded-xl border transition-all relative ${selected === "fastest"
-              ? "border-[#B2C2F8] bg-[#E6EBFD] hover:border-blue-400"
-              : "border-[#B2C2F8] bg-[#E6EBFD] hover:border-blue-400"
-              }`}
-          >
-            <div className=" flex items-center  gap-2 ">
-              <div>
-               <Zap className="w-4 h-4 text-green-500" />
-              </div>
-              <div className="text-left">
-                <p className="text-[15px] font-medium text-[#0F172A]">
-                  Fastest First
-                </p>
-                <p className="text-xs text-[#6B7280] mt-1">
-                  1h 15m duration
-                </p>
+                  </div>
+                </div>
+                <div className="absolute top-7 right-3 w-4 h-4 rounded-sm shadow border border-[#E6EBFD] bg-[#B2C2F8] flex items-center justify-center"></div>
 
-              </div>
+                {selected === "cheapest" && (
+                  <div className="absolute top-7 right-3 w-4 h-4 rounded-sm bg-[#063BE8] flex items-center justify-center">
+                    <Check className="w-3 h-3 text-white" />
+                  </div>
+
+                )}
+              </button>
+
+              {/* Fastest First */}
+              <button
+                onClick={() => setSelected("fastest")}
+                className={`p-3 w-[188px] h-[70px] rounded-xl border transition-all relative ${selected === "fastest"
+                  ? "border-[#B2C2F8] bg-[#E6EBFD] hover:border-blue-400"
+                  : "border-[#B2C2F8] bg-[#E6EBFD] hover:border-blue-400"
+                  }`}
+              >
+                <div className=" flex items-center  gap-2 ">
+                  <div>
+                    <Zap className="w-4 h-4 text-green-500" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[15px] font-medium text-[#0F172A]">
+                      Fastest First
+                    </p>
+                    <p className="text-xs text-[#6B7280] mt-1">
+                      1h 15m duration
+                    </p>
+
+                  </div>
+                </div>
+
+                <div className="absolute top-7 right-3 w-4 h-4 rounded-sm shadow border border-[#E6EBFD] bg-[#B2C2F8] flex items-center justify-center"></div>
+
+                {selected === "fastest" && (
+                  <div className="absolute top-7 right-3 w-4 h-4 rounded-sm bg-blue-600 flex items-center justify-center">
+                    <Check className="w-3 h-3 text-white" />
+                  </div>
+                )}
+              </button>
             </div>
-         
-             <div className="absolute top-7 right-3 w-4 h-4 rounded-sm shadow border border-[#E6EBFD] bg-[#B2C2F8] flex items-center justify-center"></div>
+          </div>
+        )
+      }
 
-            {selected === "fastest" && (
-              <div className="absolute top-7 right-3 w-4 h-4 rounded-sm bg-blue-600 flex items-center justify-center">
-                <Check className="w-3 h-3 text-white" />
-              </div>
-            )}
-          </button>
-        </div>
-      </div>
     </div>
   );
 };

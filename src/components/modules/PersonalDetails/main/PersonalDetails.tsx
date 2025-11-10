@@ -5,7 +5,7 @@ import ContainerPersonalDetails from '../../../common/ContainerPersonalDetails/m
 const PersonalDetails = () => {
   return (
     <div>
-      <TobHero/>
+      <TobHero />
       <ContainerPersonalDetails />
     </div>
   )

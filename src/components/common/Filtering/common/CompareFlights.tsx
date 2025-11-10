@@ -20,8 +20,8 @@ const CompareFlights = ({ flights = [], onClose }: any) => {
   const fastestDuration = Math.min(d1, d2);
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex justify-center items-center p-4 md:p-6 overflow-y-auto">
-      <div className="bg-white w-full max-w-4xl rounded-[10px] shadow-xl p-4 md:p-6 relative">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex justify-center items-center xl:pt-[500px]  2xl:pt-48  overflow-y-auto">
+      <div className="bg-white w-full max-w-4xl rounded-[10px] shadow-xl p-4 md:p-6 relative ">
 
         {/* Close Button */}
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-600 hover:text-red-600">
