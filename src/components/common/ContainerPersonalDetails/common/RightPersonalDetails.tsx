@@ -7,10 +7,10 @@ import PersonalDetailsAddOnsServicesOptional from './PersonalDetailsAddOnsServic
 const RightPersonalDetails = () => {
   return (
     <div className="flex flex-col gap-4 w-[650px] ">
-      <PersonalDetailsFlightSummary/>
-      <PersonalDetailsPersonal/>
-      <PersonalDetailsContactInformation/>
-      <PersonalDetailsAddOnsServicesOptional/>
+      <PersonalDetailsFlightSummary />
+      <PersonalDetailsPersonal />
+      <PersonalDetailsContactInformation />
+      <PersonalDetailsAddOnsServicesOptional />
     </div>
   )
 }
