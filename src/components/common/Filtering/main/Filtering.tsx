@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import TopQuickFilters from '../common/TopQuickFilters'
 import Filters from '../common/Filters'
-import AvailableFilters from '../common/AvailableFilters'
+import AvailableFilters from '../common/Available'
 import FlightCard from '../common/FilterCart'
+import { Tab } from '@/components/modules/Home/Hero'
+import BusCart from '../common/BusCart'
 
-const Filtering = () => {
+const Filtering = ({ selectedTab }: { selectedTab: Tab }) => {
   const flights = [
     {
       id: 1,
@@ -21,7 +23,7 @@ const Filtering = () => {
       price: 450,
       seatsLeft: 12,
       aircraft: "Boeing 737-800",
-      refundable:true,
+      refundable: true,
       tags: ["Best Value", "Direct Flight"],
       amenities: [
         "20kg Check-in",
@@ -47,7 +49,7 @@ const Filtering = () => {
       aircraft: "ATR 72-600",
       tags: ["Direct Flight"],
       amenities: ["20kg Check-in", "Refundable"],
-      refundable:false,
+      refundable: false,
     },
     {
       id: 3,
@@ -74,28 +76,49 @@ const Filtering = () => {
     },
   ];
   const [compareList, setCompareList] = useState([]);
-    const [compareMode, setCompareMode] = useState(false);
+  const [compareMode, setCompareMode] = useState(false);
 
   const [selectedFlight, setSelectedFlight] = useState(null);
   return (
     <div className=" mt-52  flex flex-col gap-16">
-      <div className='flex gap-4'>
-        <div className='w-[23.5%]'>
-          <Filters />
-        </div>
-        <div className='w-full  '>
-          <TopQuickFilters />
-          <AvailableFilters compareMode={compareMode} setCompareMode={setCompareMode} flights={flights} compareList={compareList}  setCompareList={setCompareList} />
-          <FlightCard
-            flights={flights}
-            selectedFlight={selectedFlight}
-            setSelectedFlight={setSelectedFlight}
-            compareList={compareList}
-            setCompareList={setCompareList}
-            compareMode={compareMode}
-          />
-        </div>
-      </div>
+
+      {
+        selectedTab === "Flights" && (
+
+          <div className='flex gap-4'>
+            <div className='w-[23.5%]'>
+              <Filters />
+            </div>
+            <div className='w-full  '>
+              <TopQuickFilters selectedTab={selectedTab} />
+              <AvailableFilters compareMode={compareMode} setCompareMode={setCompareMode} flights={flights} compareList={compareList} setCompareList={setCompareList} />
+              <FlightCard
+                flights={flights}
+                selectedFlight={selectedFlight}
+                setSelectedFlight={setSelectedFlight}
+                compareList={compareList}
+                setCompareList={setCompareList}
+                compareMode={compareMode}
+              />
+            </div>
+          </div>
+        )
+      }
+      {
+        selectedTab === "Bus" && (
+          <div className='flex gap-4'>
+            <div className='w-[23.5%]'>
+              <Filters />
+            </div>
+            <div className='w-full  '>
+              <TopQuickFilters selectedTab={selectedTab} />
+              <AvailableFilters selectedTab={selectedTab} compareMode={compareMode} setCompareMode={setCompareMode} flights={flights} compareList={compareList} setCompareList={setCompareList} />
+              <BusCart/>
+            </div>
+          </div>
+        )
+      }
+
     </div>
   )
 }

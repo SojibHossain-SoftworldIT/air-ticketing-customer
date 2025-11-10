@@ -12,8 +12,9 @@ import {
 
 } from "lucide-react";
 import Flights from "../common/flights/main/Flights";
+import Buss from "../common/bus/main/Bus";
 
-const BusinessClass = ({setFindTicket} : any) => {
+const BusinessClass = ({setFindTicket  , selectedTab , setSelectedTab } : any) => {
   const Tabs = [
     { name: "Flights", icon: <Plane size={16} /> },
     { name: "Bus", icon: <Bus size={16} /> },
@@ -24,7 +25,6 @@ const BusinessClass = ({setFindTicket} : any) => {
     { name: "Packages", icon: <Package size={16} /> },
     { name: "Offers", icon: <HandCoins size={16} /> },
   ]
-  const [selectedTab, setSelectedTab] = useState("Flights");
 
   return (
     <div className="flex justify-center">
@@ -53,7 +53,10 @@ const BusinessClass = ({setFindTicket} : any) => {
           <Flights setFindTicket  = {setFindTicket}/>
         )}
         
-        {selectedTab !== "Flights" && (
+        {selectedTab === "Bus" && (
+          <Buss setFindTicket  = {setFindTicket}/>
+        )}
+        {["Launch", "Train", "Hotel", "Visa", "Packages", "Offers"].includes(selectedTab) && (
           <div className="flex flex-col items-center justify-center py-16 text-center bg-white  border-gray-100 rounded-2xl">
             <h2 className="text-lg font-semibold text-gray-700 mb-2">
               {selectedTab} Booking Coming Soon
