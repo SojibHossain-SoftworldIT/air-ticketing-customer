@@ -101,7 +101,6 @@ const OneWay = () => {
 
                     </div>
                   </div>
-                  <ChevronRight size={20} color="#CED4DE" />
                 </div>
               ))}
             </div>
@@ -153,7 +152,6 @@ const OneWay = () => {
 
                     </div>
                   </div>
-                  <ChevronRight size={20} color="#CED4DE" />
                 </div>
               ))}
             </div>
