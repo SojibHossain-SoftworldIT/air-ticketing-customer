@@ -33,11 +33,11 @@ const LoginPage = () => {
 
   const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
 
-  const variants = {
-    initial: { opacity: 0, x: 50 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -50 },
-  };
+  // const variants = {
+  //   initial: { opacity: 0, x: 50 },
+  //   animate: { opacity: 1, x: 0 },
+  //   exit: { opacity: 0, x: -50 },
+  // };
 
   return (
     <div className="w-full min-h-screen bg-[#F2F4F8] flex flex-col justify-between ">
@@ -148,7 +148,7 @@ const LoginPage = () => {
                   </h2>
 
                   <p className="text-center text-[#667085] text-sm max-w-[400px] leading-relaxed">
-                    No problem, Just enter your email address below — we'll send you a OTP Code to reset password
+                    No problem, Just enter your email address below — we`ll send you a OTP Code to reset password
                   </p>
 
                   <div className="flex flex-col w-[452px]">
@@ -209,7 +209,7 @@ const LoginPage = () => {
                   </div>
 
                   <p className="text-sm text-[#6B6B6B] mt-2 text-center">
-                    Didn't get a code?{" "}
+                    Didn`t get a code?{" "}
                     <button className="text-[#0057FF] font-medium hover:underline" onClick={() => setOtp(["", "", "", ""])}>
                       Click to resend
                     </button>
