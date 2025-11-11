@@ -69,7 +69,7 @@ const LoginPage = () => {
           </div>
 
           {/* Main Card */}
-          <div className=" p-7 mb-7">
+          <div className=" bg-white shadow-md rounded-[20px] w-full p-7 mb-7">
             <>
               {/* STEP 1: LOGIN */}
               {step === "login" && (
@@ -164,7 +164,7 @@ const LoginPage = () => {
 
                   <button
                     onClick={() => {
-                      if (!resetInput) return alert("Enter email or phone");
+
                       setStep("otp");
                     }}
                     className="w-full bg-[#0057FF] text-white rounded-lg py-3 mt-2 hover:bg-blue-600 transition"
