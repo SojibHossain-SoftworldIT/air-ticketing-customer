@@ -1,12 +1,13 @@
 import React from 'react';
 import TobHero from '../../PersonalDetails/TobHero';
-import ContainerPersonalDetails from '@/components/common/ContainerPersonalDetails/main/ContainerPersonalDetails';
+import ContainerPaymentDetails from '../../../common/ContainerPaymentDetails/main/ContainerPaymentDetails';
 
 const PaymentDetails = () => {
     return (
         <div>
             <TobHero></TobHero>
-            <ContainerPersonalDetails></ContainerPersonalDetails>
+            <ContainerPaymentDetails></ContainerPaymentDetails>
+
         </div>
     );
 };
