@@ -30,32 +30,33 @@ const RegisterPage = () => {
     if (/[A-Z]/.test(pass)) strength++;
     if (/[0-9]/.test(pass)) strength++;
     if (/[^A-Za-z0-9]/.test(pass)) strength++;
-    return strength; // 0-4
+    return strength;
   };
 
   return (
-    <div className=" bg-[#F2F4F8] flex flex-col justify-between relative">
+    <div className="w-full h-screen overflow-hidden bg-[#F2F4F8] flex flex-col justify-between relative">
+      {/* Decorative Blob */}
       <div className="h-[400px] w-[500px] bg-[#EBEEFF] absolute -right-5 -top-10 -rotate-[18.57deg] 
-                rounded-[100px] opacity-50 blur-[30px]">
-      </div>
+                rounded-[100px] opacity-50 blur-[30px]"></div>
+
       {/* Main Content */}
-      <div className="flex justify-around  pt-[50px]">
+      <div className="flex justify-around items-start h-full w-full p-8">
 
         {/* LEFT IMAGE */}
         <div className="rounded-3xl overflow-hidden h-full">
           <Image
             src="/Frame 2147226025.png"
             alt="plane"
-            width={648}
-            height={5}
-            className="rounded-3xl "
+            width={648}        // original fixed width
+            height={1016}      // you can adjust to maintain aspect ratio
+            className="rounded-3xl max-h-screen object-cover"
             priority
           />
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="w-[500px] h-[750] flex flex-col gap-[42px] relative     mt-28 ">
 
+        {/* RIGHT SIDE */}
+        <div className="flex-1 max-w-[500px] flex flex-col gap-[42px] mt-28 relative">
 
           {/* Logo */}
           <div className="flex justify-center items-center gap-3">
@@ -66,7 +67,7 @@ const RegisterPage = () => {
               width={50}
               height={50}
             />
-            <h5 className="text-xl  text-[#0A0A0A]">Ehen Tours</h5>
+            <h5 className="text-xl text-[#0A0A0A]">Ehen Tours</h5>
           </div>
 
           {/* MAIN CARD */}
@@ -98,7 +99,7 @@ const RegisterPage = () => {
                   value={phone}
                   onChange={(value) => setPhone(value)}
                   inputStyle={{
-                    width: "450px",
+                    width: "100%",
                     height: "50px",
                     borderRadius: "0px",
                     fontSize: "16px",
@@ -111,10 +112,9 @@ const RegisterPage = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-
                   }}
                   containerStyle={{
-                    width: "450px",
+                    width: "100%",
                   }}
                   dropdownStyle={{
                     width: "350px",
@@ -135,7 +135,7 @@ const RegisterPage = () => {
 
                 <button
                   onClick={handleSendCode}
-                  className="bg-[#0057FF] text-white py-3 rounded-lg font-medium"
+                  className="bg-[#0057FF] text-white py-3 rounded-lg font-medium w-full"
                 >
                   {phone.length > 0 ? "Send Code" : "Continue"}
                 </button>
@@ -146,18 +146,18 @@ const RegisterPage = () => {
                   <div className="flex-1 h-px bg-gray-300"></div>
                 </div>
 
-                <button className="border rounded-lg py-3 flex items-center justify-center gap-3">
+                <button className="border rounded-lg py-3 flex items-center justify-center gap-3 w-full">
                   <Image src="/google.png" alt="google" width={20} height={20} />
                   <span className="text-sm font-medium">Sign up with Google</span>
                 </button>
 
-                <button className="border rounded-lg py-3 flex items-center justify-center gap-3">
+                <button className="border rounded-lg py-3 flex items-center justify-center gap-3 w-full">
                   <Image src="/apple.png" alt="apple" width={20} height={20} />
                   <span className="text-sm font-medium">Sign up with Apple</span>
                 </button>
 
                 <div className="bg-[#E6EAF682] p-3.5 w-full rounded-2xl">
-                  <p className="text-center text-sm text-[#6B6B6B]  ">
+                  <p className="text-center text-sm text-[#6B6B6B]">
                     Don’t have an account?{" "}
                     <span className="text-[#0057FF] cursor-pointer font-medium">
                       Login
@@ -221,17 +221,10 @@ const RegisterPage = () => {
                   </button>
                 </div>
 
-                <div className="bg-[#E6EAF682] p-3 w-full rounded-2xl">
-                  <p className="text-center text-sm text-[#6B6B6B]  ">
-                    By signing up you agree to our
-                    <span className="text-[#0057FF] cursor-pointer p-1 ">
-                      privacy Policy
-                    </span>
-                    and
-                    <span className="text-[#0057FF] cursor-pointer p-1">
-                      Terms of service
-                    </span>
-                  </p>
+                <div className="bg-[#E6EAF682] p-3 w-full rounded-2xl text-center text-sm text-[#6B6B6B]">
+                  By signing up you agree to our{" "}
+                  <span className="text-[#0057FF] cursor-pointer p-1">Privacy Policy</span> and{" "}
+                  <span className="text-[#0057FF] cursor-pointer p-1">Terms of service</span>
                 </div>
 
               </div>
@@ -348,7 +341,6 @@ const RegisterPage = () => {
                   </div>
                 </div>
 
-                {/* Buttons */}
                 <div className="flex justify-between w-full mt-4 gap-4">
                   <button className="flex-1 border border-gray-300 rounded-lg py-3">
                     Skip
@@ -361,7 +353,6 @@ const RegisterPage = () => {
                   </button>
                 </div>
 
-                {/* Consent Text */}
                 <div
                   className="w-full mt-4 p-3 text-sm text-[#3A3A3A] text-center"
                   style={{ backgroundColor: "#E6EAF682" }}
@@ -376,8 +367,6 @@ const RegisterPage = () => {
             {/* PASSWORD STEP */}
             {step === "password" && (
               <div className="flex flex-col gap-6 items-center w-full">
-
-                {/* Password Inputs */}
                 <div className="flex flex-col gap-4 w-full">
                   <div className="flex flex-col w-[452px]">
                     <label className="font-bold text-sm mb-1">Create Password</label>
@@ -389,7 +378,6 @@ const RegisterPage = () => {
                       onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    {/* Password Strength */}
                     <div className="flex gap-1 mt-2 h-2">
                       {[0, 1, 2].map(i => (
                         <div
@@ -429,7 +417,7 @@ const RegisterPage = () => {
                 </button>
 
                 <div className="bg-[#E6EAF682] p-3.5 w-full rounded-2xl">
-                  <p className="text-center text-sm text-[#6B6B6B]  ">
+                  <p className="text-center text-sm text-[#6B6B6B]">
                     Already have an account?{" "}
                     <span className="text-[#0057FF] cursor-pointer font-medium">
                       Sign in
@@ -465,25 +453,8 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
-
-      {/* Footer
-      <div
-        className="w-full py-4 text-center text-sm text-[#3A3A3A]"
-        style={{ backgroundColor: "#E6EAF682" }}
-      >
-        By signing up you agree to our{" "}
-        <span className="text-[#0057FF] cursor-pointer font-medium">
-          Privacy Policy
-        </span>{" "}
-        and{" "}
-        <span className="text-[#0057FF] cursor-pointer font-medium">
-          Terms of Service
-        </span>
-      </div> */}
     </div>
   );
 };
 
 export default RegisterPage;
-
-
