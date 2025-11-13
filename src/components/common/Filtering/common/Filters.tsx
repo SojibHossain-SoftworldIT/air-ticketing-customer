@@ -195,7 +195,6 @@ const Filters = () => {
   );
 };
 
-// ✅ FilterSection component
 const FilterSection: React.FC<FiltersProps> = ({
   title,
   items,
