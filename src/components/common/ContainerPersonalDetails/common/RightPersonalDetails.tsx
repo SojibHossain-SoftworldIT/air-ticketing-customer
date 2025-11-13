@@ -3,14 +3,23 @@ import PersonalDetailsFlightSummary from './PersonalDetailsFlightSummary'
 import PersonalDetailsPersonal from './PersonalDetailsPersonal'
 import PersonalDetailsContactInformation from './PersonalDetailsContactInformation'
 import PersonalDetailsAddOnsServicesOptional from './PersonalDetailsAddOnsServicesOptional'
+import PersonalDetailsBusSummary from './PersonalDetailsBusSummary'
+import PersonalDetailsBusSelectYourSeats from './PersonalDetailsBusSelectYourSeats'
 
-const RightPersonalDetails = () => {
+
+const RightPersonalDetails = ({selectedTab}: any) => {
+
   return (
-    <div className="flex flex-col gap-4 w-[650px] ">
-      <PersonalDetailsFlightSummary />
-      <PersonalDetailsPersonal />
-      <PersonalDetailsContactInformation />
-      <PersonalDetailsAddOnsServicesOptional />
+    <div className="flex flex-col gap-4 w-full ">
+      {selectedTab === "Flights"  &&  <PersonalDetailsFlightSummary />          }
+      {selectedTab === "Flights"  &&  <PersonalDetailsPersonal />               }
+      {selectedTab === "Flights"  &&  <PersonalDetailsContactInformation />     }
+      {selectedTab === "Flights"  &&  <PersonalDetailsAddOnsServicesOptional /> }
+      {selectedTab === "Bus"      &&  <PersonalDetailsBusSummary />             }
+      {selectedTab === "Bus"      &&  <PersonalDetailsBusSelectYourSeats />             }
+
+      
+     
     </div>
   )
 }

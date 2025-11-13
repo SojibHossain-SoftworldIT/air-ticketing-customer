@@ -13,11 +13,11 @@ import {
   Wallet,
 } from "lucide-react";
 
-const LeftPersonalDetails = () => {
+const LeftPersonalDetails = ({background}: any) => {
   return (
     <div>
 
-    <div className="w-full max-w-sm  bg-white rounded-2xl border border-gray-200 p-5 ">
+    <div className={`w-[360px]  ${background}   rounded-2xl border border-gray-200 p-5 `}>
       {/* Timer Section */}
       <div className="bg-orange-50 border border-orange-100 rounded-xl p-4 text-center mb-5">
         <p className="text-2xl font-semibold text-orange-500 mb-1">13:48</p>

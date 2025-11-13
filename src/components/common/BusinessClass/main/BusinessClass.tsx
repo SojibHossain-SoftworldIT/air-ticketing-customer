@@ -28,7 +28,7 @@ const BusinessClass = ({setFindTicket  , selectedTab , setSelectedTab } : any) =
 
   return (
     <div className="flex justify-center  ">
-      <div className="bg-white absolute top-72 z-50   w-[1200px] rounded-2xl shadow-md ">
+      <div className="bg-white absolute top-72 z-30   w-[1200px] rounded-2xl shadow-md ">
 
         {/* Tabs */}
         <div className="flex justify-center bg-[#E6EAF6] rounded-t-2xl border-b p-4 mb-6">
