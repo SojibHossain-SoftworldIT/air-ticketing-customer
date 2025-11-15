@@ -1,3 +1,4 @@
+
 import PaymentDetails from '@/components/modules/paymentDetails/main/PaymentDetails';
 import React from 'react';
 

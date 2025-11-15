@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { Wifi, Zap, Coffee, Monitor, RefreshCw, Star } from "lucide-react";
+import Link from "next/link";
 
 const busData = [
     {
@@ -94,9 +95,11 @@ const BusCart = () => {
                         <div className="text-right ">
                             <p className="text-sm text-gray-500">per seat</p>
                             <p className="text-2xl font-medium text-[#063BE8]">৳{bus.price}</p>
+                            <Link href={"/personalDetails"} >
                             <button className="mt-2 px-7 py-2 bg-[#063BE8] text-white rounded-lg text-sm hover:bg-blue-700">
                                 View Seats
                             </button>
+                            </Link>
                         </div>
                     </div>
 

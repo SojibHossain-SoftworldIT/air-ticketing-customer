@@ -38,7 +38,7 @@ const Bus = ({ setFindTicket }: any) => {
                         </button>
                     ))}
                 </div>
-               <NumberOfTicketsBtn count={count} setCount={setCount} />
+               <NumberOfTicketsBtn title="Number Of Tickets" count={count} setCount={setCount}  width={"w-52"} />
 
             </div>
 

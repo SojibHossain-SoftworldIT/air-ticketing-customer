@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./api/baseApi";
 import authReducer from "@/redux/featured/auth/authSlice";
+import tabReducer from "@/redux/featured/tab/tabSlice";
 
 import {
   PERSIST,
@@ -14,6 +15,7 @@ import storage from "redux-persist/lib/storage";
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   auth: authReducer,
+  tab: tabReducer,
 });
 
 const persistConfig = {

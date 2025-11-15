@@ -124,7 +124,7 @@ const FlightCard = ({ flights, selectedFlight, setSelectedFlight, compareList , 
               </div>
 
               <div className="w-full flex flex-col items-center">
-                <Link href={"/PersonalDetails"}>
+                <Link href={"/personalDetails"}>
                   <button className="w-full bg-[#063BE8] hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors">
                     Select Flight
                   </button>
