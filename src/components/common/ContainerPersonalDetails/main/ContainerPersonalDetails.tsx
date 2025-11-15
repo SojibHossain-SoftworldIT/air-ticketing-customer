@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import TopContainerPersonalDetails from '../common/TopContainerPersonalDetails'
 import RightPersonalDetails from '../common/RightPersonalDetails'
 import LeftPersonalDetails from '../common/LeftPersonalDetails'
@@ -11,7 +11,7 @@ import Link from 'next/link'
 const ContainerPersonalDetails = () => {
 
     const selectedTab = useSelector((state: RootState) => state.tab.selectedTab);
-
+    const [passengerDetails , setPassengerDetails] = useState(true)
 
   return (
     <div className='h-[1675px]'>
@@ -19,9 +19,9 @@ const ContainerPersonalDetails = () => {
         <TopContainerPersonalDetails  />
         <Link href={"/"} className='py-6 flex gap-2 items-center'><ArrowLeft /><p className='text-[#000B2F]'>Back To Results</p></Link>
         <div className='flex justify-between gap-4' >
-          <RightPersonalDetails selectedTab={selectedTab} />
+          <RightPersonalDetails passengerDetails={passengerDetails} selectedTab={selectedTab} />
           {selectedTab === "Flights" &&   <LeftPersonalDetails background={"bg-white"}/>}
-          {selectedTab === "Bus" &&   <LeftPersonalDetails background={"bg-[#F0F2F5]"}/>}
+          {selectedTab === "Bus" &&   <LeftPersonalDetails passengerDetails={passengerDetails} setPassengerDetails = {setPassengerDetails} background={"bg-[#F0F2F5]"}/>}
         </div>
       </div>
     </div>
