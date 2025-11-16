@@ -14,7 +14,7 @@ const BookingConfirmedPage = () => {
                 </div>
                 <h2 className="text-green-600 text-xl font-semibold">Booking Confirmed!</h2>
                 <p className="text-gray-500 text-sm max-w-md">
-                    Your flight has been successfully booked. We've sent the confirmation to your email.
+                    Your flight has been successfully booked. We&apos;ve sent the confirmation to your email.
                 </p>
             </div>
 
