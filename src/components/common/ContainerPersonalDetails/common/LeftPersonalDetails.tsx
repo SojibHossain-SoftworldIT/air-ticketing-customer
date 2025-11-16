@@ -122,7 +122,7 @@ const LeftPersonalDetails = ({ background, passengerDetails, setPassengerDetails
               )
                 : (
 
-                  <Link href={"/paymentdetails"} >
+                  <Link href={"/paymentDetails"} >
                     <button className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white text-sm font-medium py-2.5 rounded-lg hover:bg-blue-700 transition">
                       <ShieldCheck className="h-4 w-4" />
                       Proceed to Secure Payment

@@ -77,7 +77,7 @@ const LeftPaymentDetails = () => {
           <span>Total Amount</span>
           <span>BDT 106,880</span>
         </div>
-        <Link href={"/paymentdetails/bookingconfirmed"}>
+        <Link href={"/paymentDetails/bookingconfirmed"}>
         <button className="w-full bg-blue-600 text-white py-3 rounded-xl text-sm font-medium hover:bg-blue-700 transition">
           Proceed to Secure Payment
         </button>
