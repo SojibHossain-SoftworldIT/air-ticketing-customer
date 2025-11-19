@@ -6,7 +6,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="bg-[#f0f2f5]">
       <Navbar />
-      <div className="max-w-7xl mx-auto min-h-screen px-2 md:px-4 lg:px-6 mt-5 ">
+      <div className="max-w-7xl mx-auto min-h-screen px-2 md:px-4 lg:px-6 mt-2 ">
         {children}
       </div>
       <Footer />

@@ -11,11 +11,44 @@ export const authApi = baseApi.injectEndpoints({
     }),
     registerUser: builder.mutation({
       query: data => ({
-        url: '/auth/register',
+        url: '/auth/initiate-registration',
         method: 'POST',
         body: data,
       }),
     }),
+
+   completeRegistration: builder.mutation({
+      query: data => ({
+        url: '/auth/complete-registration',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+
+    verifyRegistrationEmail: builder.mutation({
+      query: data => ({
+        url: '/auth/verify-registration-email',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+
+    forgotPassword: builder.mutation({
+      query: data => ({
+        url: '/auth/forgot-password',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+
+    resetPassword: builder.mutation({
+      query: data => ({
+        url: '/auth/reset-password',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+
     logout: builder.mutation<void, string>({
       query: userId => ({
         url: `/auth/logout/${userId}`,
@@ -35,6 +68,10 @@ export const authApi = baseApi.injectEndpoints({
 export const {
   useLoginUserMutation,
   useRegisterUserMutation,
+  useCompleteRegistrationMutation,
+  useVerifyRegistrationEmailMutation, 
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
   useLogoutMutation,
   useGetMeQuery,
 } = authApi;

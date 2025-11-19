@@ -19,6 +19,14 @@ const LeftTop = ({textColer } : any) => {
             </div>
             
         </Link>
+
+        
+
+
+
+
+
+
     );
 };
 

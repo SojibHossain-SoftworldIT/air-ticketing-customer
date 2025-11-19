@@ -1,29 +1,136 @@
 "use client";
 
+import { useCompleteRegistrationMutation, useRegisterUserMutation, useVerifyRegistrationEmailMutation } from "@/redux/featured/auth/authApi";
 import { CircleCheckBig, Plane } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { toast } from 'react-hot-toast';
+import EmailStep from "@/components/common/Register/EmailStep";
+import VerifyStep from "@/components/common/Register/VerifyStep";
+import ProfileStep from "@/components/common/Register/ProfileStep";
+import Password from "@/components/common/Login/Password";
+import SuccessStep from "@/components/common/Register/SuccessStep";
 
 const Register = () => {
-  const [step, setStep] = useState<"phone" | "verify" | "profile" | "password" | "success">("phone");
-  const [phone, setPhone] = useState("");
+  const [step, setStep] = useState<"email" | "verify" | "profile" | "password" | "success">("email");
   const [code, setCode] = useState("");
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
     gender: "",
-    dob: "",
+    phoneNumber: "",
+    password: "",
     email: "",
+    dateOfBirth: ""
   });
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [dataEmail, setDataEmail] = useState("");
 
-  const handleSendCode = () => setStep("verify");
-  const handleVerify = () => setStep("profile");
-  const handleProfileContinue = () => setStep("password");
-  const handlePasswordContinue = () => setStep("success");
+  const [completeRegistration, { isLoading: isCompleting }] = useCompleteRegistrationMutation();
+  const [registerUser, { isLoading: isRegistering }] = useRegisterUserMutation();
+  const [verifyEmail, { isLoading: isVerifying }] = useVerifyRegistrationEmailMutation();
+
+  // Send OTP to email
+  const handleSendCode = async () => {
+    if (!profile.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      const res = await registerUser({ email: profile.email }).unwrap();
+      toast.success(res?.message || "Verification code sent!");
+      setDataEmail(profile.email);
+      setStep("verify");
+    } catch (err: any) {
+      const errorMessage = err?.data?.message || err?.message || "Failed to send code";
+      toast.error(errorMessage);
+      console.error("Send code error:", err);
+    }
+  };
+
+  // Verify OTP
+  const handleVerify = async () => {
+    if (code.length !== 6) {
+      toast.error("Please enter the complete 6-digit code");
+      return;
+    }
+
+    if (!dataEmail) {
+      toast.error("Email not found. Please restart the process.");
+      setStep("email");
+      return;
+    }
+
+    try {
+      const res = await verifyEmail({
+        email: dataEmail,
+        otp: code
+      }).unwrap();
+
+      toast.success(res?.message || "Email verified successfully!");
+      setStep("profile");
+    } catch (error: any) {
+      const errorMessage = error?.data?.message || error?.message || "Invalid or expired OTP!";
+      toast.error(errorMessage);
+      console.error("Verify error:", error);
+    }
+  };
+
+  // Complete registration
+  const handleCompleteRegistration = async () => {
+    // Validation
+    if (!profile.firstName || !profile.lastName) {
+      toast.error("Please enter your first and last name");
+      return;
+    }
+
+    if (!profile.gender) {
+      toast.error("Please select your gender");
+      return;
+    }
+
+    if (!profile.dateOfBirth) {
+      toast.error("Please enter your date of birth");
+      return;
+    }
+
+    if (!password || password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    try {
+      const registrationData = {
+        email: dataEmail,
+        phoneNumber: profile.phoneNumber || "",
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        password: password,
+        gender: profile.gender.toUpperCase(),
+        dateOfBirth: profile.dateOfBirth
+      };
+
+      console.log("Registration payload:", registrationData);
+
+      const res = await completeRegistration(registrationData).unwrap();
+
+      toast.success(res?.message || "Registration completed successfully!");
+      setStep("success");
+    } catch (error: any) {
+      const errorMessage = error?.data?.message || error?.message || "Registration failed";
+      toast.error(errorMessage);
+      console.error("Complete registration error:", error);
+    }
+  };
 
   const getPasswordStrength = (pass: string) => {
     let strength = 0;
@@ -31,17 +138,30 @@ const Register = () => {
     if (/[A-Z]/.test(pass)) strength++;
     if (/[0-9]/.test(pass)) strength++;
     if (/[^A-Za-z0-9]/.test(pass)) strength++;
-    return strength; // 0-4
+    return strength;
+  };
+
+  const getPasswordStrengthText = () => {
+    const strength = getPasswordStrength(password);
+    if (strength === 0 || password.length === 0) return "";
+    if (strength <= 1) return "Weak";
+    if (strength === 2) return "Medium";
+    return "Strong";
+  };
+
+  const getPasswordStrengthColor = () => {
+    const strength = getPasswordStrength(password);
+    if (strength <= 1) return "text-red-500";
+    if (strength === 2) return "text-yellow-500";
+    return "text-green-500";
   };
 
   return (
-    <div className=" w-full  h-screen bg-[#FAFBFC]  flex flex-col justify-center items-center p-2">
-
-      {/* Main Content */}
-      <div className="flex   justify-between w-full h-full   items-center">
+    <div className="w-full h-screen bg-[#FAFBFC] flex flex-col justify-center items-center p-2">
+      <div className="flex justify-between w-full h-full items-center">
 
         {/* LEFT IMAGE */}
-        <div className="relative w-[50%]  h-full">
+        <div className="relative w-[50%] h-full">
           <Image
             src="/Frame 2147226025.png"
             alt="plane"
@@ -51,396 +171,76 @@ const Register = () => {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex flex-col gap-4 justify-center relative w-[50%] items-center  ">
-          <div className="absolute w-40 h-40 top-0 right-0   bg-[#063BE8] blur-[250px]"></div>
+        <div className="flex flex-col gap-4 justify-center relative w-[50%] items-center">
+          <div className="absolute w-40 h-40 top-0 right-0 bg-[#063BE8] blur-[250px]"></div>
 
           {/* Logo */}
           <div className="flex justify-center items-center gap-3">
-            <div className={`bg-[#0028A8] text-white  p-2 rounded-md flex items-center justify-center`}>
+            <div className="bg-[#0028A8] text-white p-2 rounded-md flex items-center justify-center">
               <Plane size={30} />
             </div>
             <h5 className="text-3xl text-[#0A0A0A]">Ehen Tours</h5>
           </div>
 
           {/* MAIN CARD */}
-          <div className="bg-[#FAFBFC] max-w-[500px]  border z-20 overflow-hidden rounded-[20px] w-full ">
+          <div className="bg-[#FAFBFC] max-w-[500px] border z-20 overflow-hidden rounded-[20px] w-full">
 
             {/* Heading */}
-            <h2 className="text-[28px] font-semibold py-4 text-center ">
-              {step === "phone"
-                ? "Welcome To Travel"
-                : step === "verify"
-                  ? "Enter the 4-digit code"
-                  : step === "profile"
-                    ? "Your Profile Info"
-                    : step === "password"
-                      ? "Create New Password"
-                      : ""}
+            <h2 className="text-[28px] font-semibold py-4 text-center">
+              {step === "email" && "Welcome To Travel"}
+              {step === "verify" && "Enter the 6-digit code"}
+              {step === "profile" && "Your Profile Info"}
+              {step === "password" && "Create New Password"}
+              {step === "success" && ""}
             </h2>
 
-            {/* PHONE STEP */}
-            {step === "phone" && (
+            {/* EMAIL STEP */}
+            {step === "email" && (
 
-              <div>
-
-                <div className="flex flex-col px-7 pb-4  gap-4">
-
-                  <label className="text-m font-semibold text-[#3A3A3A]">
-                    Enter Phone Number
-                  </label>
-
-                  <PhoneInput
-                    country={"bd"}
-                    value={phone}
-                    onChange={(value) => setPhone(value)}
-                    inputStyle={{
-                      width: "100%",
-                      height: "50px",
-                      borderRadius: "10px 10px 10px 10px",
-                      fontSize: "16px",
-                      paddingLeft: "62px",
-                    }}
-                    buttonStyle={{
-                      borderRadius: "10px 0px 0px 10px",
-                      width: "55px",
-                      height: "50px",
-                      display: "flex",
-                      alignItems: "center"
-
-                    }}
-                    containerStyle={{
-                      width: "450px",
-                    }}
-                    dropdownStyle={{
-                      width: "350px",
-                      marginTop: "300px"
-                    }}
-
-                    specialLabel=""
-                  />
-
-                  <p className="text-[#6B6B6B] text-sm mt-2">
-                    We will send you a verification code to this number
-                  </p>
-
-                  <button
-                    onClick={handleSendCode}
-                    className="bg-[#0057FF] text-white py-3 rounded-lg font-medium"
-                  >
-                    {phone.length > 0 ? "Send Code" : "Continue"}
-                  </button>
-
-                  <div className="flex items-center gap-3 mt-2">
-                    <div className="flex-1 h-px bg-gray-300"></div>
-                    <span className="text-gray-500 text-sm">Or</span>
-                    <div className="flex-1 h-px bg-gray-300"></div>
-                  </div>
-
-                  <button className="border rounded-lg shadow-xs py-3 flex items-center justify-center gap-3">
-                    <Image src="/google.png" alt="google" width={20} height={20} />
-                    <span className="text-sm font-medium">Sign up with Google</span>
-                  </button>
-
-                  <button className="border rounded-lg shadow-xs py-3 flex items-center justify-center gap-3">
-                    <Image src="/apple.png" alt="apple" width={20} height={20} />
-                    <span className="text-sm font-medium">Sign up with Apple</span>
-                  </button>
-
-
-
-                </div>
-                <div className="bg-[#E6EAF647] p-3.5 w-full">
-                  <p className="text-center text-sm text-[#667085]  ">
-                    Don’t have an account?{" "}
-                    <span className="text-[#0057FF] cursor-pointer font-medium">
-                      Login
-                    </span>
-                  </p>
-                </div>
-
-              </div>
+              <EmailStep
+                profile={profile}
+                setProfile={setProfile}
+                handleSendCode={handleSendCode}
+                isRegistering={isRegistering} />
             )}
 
             {/* VERIFY STEP */}
             {step === "verify" && (
-              <div>
-
-                <div className="flex flex-col gap-6 p-7 items-center w-full">
-
-                  <div className="flex gap-4">
-                    {[0, 1, 2, 3].map((i) => (
-                      <input
-                        key={i}
-                        type="text"
-                        maxLength={1}
-                        className="w-20 h-20 border-2 border-[#F04438] rounded-lg p-[10px_8px] text-center text-2xl"
-                        value={code[i] || ""}
-                        onChange={(e) => {
-                          const newCode = code.split("");
-                          newCode[i] = e.target.value.replace(/\D/, "");
-                          setCode(newCode.join(""));
-                          const next = document.getElementById(`code-${i + 1}`);
-                          if (next && e.target.value)
-                            (next as HTMLInputElement).focus();
-                        }}
-                        id={`code-${i}`}
-                      />
-                    ))}
-                  </div>
-
-                  <p className="text-sm text-[#6B6B6B] mt-2">
-                    Didn’t get a code?{" "}
-                    <span
-                      className="text-[#0057FF] cursor-pointer font-medium"
-                      onClick={() => {
-                        setStep("phone");
-                        setCode("");
-                      }}
-                    >
-                      Click to resend
-                    </span>
-                  </p>
-
-                  <div className="flex justify-between w-full mt-4 gap-4">
-                    <button className="flex-1 border text-[#1D68E5] bg-[#DDE8FB] rounded-lg py-3">
-                      Skip
-                    </button>
-                    <button
-                      onClick={handleVerify}
-                      className="flex-1 bg-[#0057FF] text-white rounded-lg py-3"
-                    >
-                      Verify
-                    </button>
-                  </div>
-
-
-
-                </div>
-                <div className="bg-[#E6EAF682] p-3 w-full">
-                  <p className="text-center text-sm text-[#6B6B6B]  ">
-                    By signing up you agree to our
-                    <span className="text-[#0057FF] cursor-pointer p-1 ">
-                      privacy Policy
-                    </span>
-                    and
-                    <span className="text-[#0057FF] cursor-pointer p-1">
-                      Terms of service
-                    </span>
-                  </p>
-                </div>
-
-              </div>
+              <VerifyStep
+                code={code}
+                setCode={setCode}
+                setStep={setStep}
+                handleVerify={handleVerify}
+                isVerifying={isVerifying} />
             )}
 
             {/* PROFILE STEP */}
             {step === "profile" && (
-              <div>
-                <div className="flex flex-col 2xl:gap-6 gap-3 2xl:p-7 xl:px-7 items-center w-full">
-
-                  {/* First & Last Name */}
-                  <div className="flex gap-4 w-full">
-                    <div className="flex flex-col w-full">
-                      <label className="font-bold  text-sm mb-1">First Name</label>
-                      <input
-                        type="text"
-                        placeholder="Enter first name"
-                        className="w-full h-11 border shadow-xs rounded-lg p-2 text-[#667085]"
-                        value={profile.firstName}
-                        onChange={(e) =>
-                          setProfile({ ...profile, firstName: e.target.value })
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col w-full">
-                      <label className="font-bold  text-sm mb-1">Last Name</label>
-                      <input
-                        type="text"
-                        placeholder="Enter last name"
-                        className="w-full h-11 border shadow-xs rounded-lg p-2 text-[#667085]"
-                        value={profile.lastName}
-                        onChange={(e) =>
-                          setProfile({ ...profile, lastName: e.target.value })
-                        }
-                      />
-                    </div>
-                  </div>
-                  <p className="text-sm text-[#667085]">
-                    Make sure this matches the name on your Government National ID
-                  </p>
-
-                  {/* Gender & DOB */}
-                  <div className="flex gap-4 w-full">
-                    {/* Gender Dropdown */}
-                    <div className="flex flex-col w-full">
-                      <label className="font-bold text-sm mb-1">Your Gender</label>
-                      <div className="relative w-full h-11">
-                        <select
-                          value={profile.gender}
-                          onChange={(e) => setProfile({ ...profile, gender: e.target.value })}
-                          className="w-full h-full shadow-xs border rounded-lg p-2 appearance-none text-[#667085] pr-8"
-                        >
-                          <option value="" disabled>
-                            Select gender
-                          </option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                          <option value="Other">Other</option>
-                        </select>
-
-                      </div>
-                    </div>
-
-                    {/* Date of Birth */}
-                    <div className="flex flex-col shadow-xs w-full">
-                      <label className="font-bold text-sm mb-1">Date of Birth</label>
-                      <input
-                        type="date"
-                        className="w-full h-11 border rounded-lg p-2 text-[#667085]"
-                        value={profile.dob}
-                        onChange={(e) =>
-                          setProfile({ ...profile, dob: e.target.value })
-                        }
-                      />
-                    </div>
-                  </div>
-
-                  {/* Email */}
-                  <div className="flex flex-col shadow-xs w-full relative">
-                    <label className="font-bold text-sm mb-1">Email Address</label>
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      className="w-full h-11 border rounded-lg p-2 pr-10 text-[#667085]"
-                      value={profile.email}
-                      onChange={(e) =>
-                        setProfile({ ...profile, email: e.target.value })
-                      }
-                    />
-
-                  </div>
-
-                  {/* Buttons */}
-                  <div className="flex justify-between w-full mt-4 gap-4">
-                    <button className="flex-1 border text-[#1D68E5] bg-[#DDE8FB] rounded-lg py-3">
-                      Skip
-                    </button>
-                    <button
-                      className="flex-1 bg-[#0057FF] text-white rounded-lg py-3"
-                      onClick={handleProfileContinue}
-                    >
-                      Continue
-                    </button>
-                  </div>
-
-
-                </div>
-
-                {/* Consent Text */}
-                <div
-                  className="w-full mt-4 p-3 text-sm text-[#3A3A3A] text-center"
-                  style={{ backgroundColor: "#E6EAF682" }}
-                >
-                  By selecting agree and continue I agree Travel terms of service, payment terms of service and Nondiscrimination Policy and acknowledge the{" "}
-                  <span className="text-[#0057FF] cursor-pointer">Privacy Policy</span>
-                </div>
-
-
-              </div>
+              <ProfileStep
+                profile={profile}
+                setProfile={setProfile}
+                setStep={setStep} />
             )}
 
             {/* PASSWORD STEP */}
             {step === "password" && (
-              <div>
-              <div className="flex flex-col gap-6 p-7 items-center w-full">
-
-                {/* Password Inputs */}
-                <div className="flex flex-col gap-4 w-full">
-                  <div className="flex flex-col w-[452px]">
-                    <label className="font-bold text-sm mb-1">Create Password</label>
-                    <input
-                      type="password"
-                      placeholder="Enter your password"
-                      className="w-full h-11 border shadow-xs rounded-lg p-2 text-[#667085]"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-
-
-                  </div>
-                  <div>
-                    <p className="font-bold text-sm text-[#12B76A]">Strong</p>
-
-                    <div className="flex gap-1 mt-2 h-2">
-                      {[0, 1, 2].map((i) => (
-                        <div
-                          key={i}
-                          className={`flex-1 rounded h-full ${getPasswordStrength(password) > i ? "bg-green-500" : "bg-gray-300"
-                            }`}
-                        ></div>
-                      ))}
-                    </div>
-                    <p className="text-sm text-gray-500 mt-1">
-                      {getPasswordStrength(password) === 0
-                        ? ""
-                        : getPasswordStrength(password) <= 1
-                          ? "Weak"
-                          : getPasswordStrength(password) === 2
-                            ? "Medium"
-                            : "Strong"}
-                    </p>
-
-                  </div>
-
-                  <div className="flex flex-col w-[452px]">
-                    <label className="font-bold text-sm mb-1">Confirm Password</label>
-                    <input
-                      type="password"
-                      placeholder="Confirm your password"
-                      className="w-full h-11 border shadow-xs rounded-lg p-2 text-[#667085]"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <button
-                  className="w-full bg-[#0057FF] text-white rounded-lg py-3 mt-2"
-                  onClick={handlePasswordContinue}
-                >
-                  Continue
-                </button>
-
-              </div>
-                <div className="bg-[#E6EAF682] p-3.5 w-full">
-                  <p className="text-center text-sm text-[#6B6B6B]  ">
-                    Already have an account?{" "}
-                    <span className="text-[#0057FF] cursor-pointer font-medium">
-                      Sign in
-                    </span>
-                  </p>
-                </div>
-
-              </div>
+              <Password
+                password={password}
+                setPassword={setPassword}
+                getPasswordStrengthColor={getPasswordStrengthColor}
+                getPasswordStrengthText={getPasswordStrengthText}
+                getPasswordStrength={getPasswordStrength}
+                confirmPassword={confirmPassword}
+                setConfirmPassword={setConfirmPassword}
+                setStep={setStep}
+                handleCompleteRegistration={handleCompleteRegistration}
+                isCompleting={isCompleting} />
             )}
 
             {/* SUCCESS STEP */}
             {step === "success" && (
-                <div className="flex flex-col gap-4 items-center w-full 2xl:p-7 py-7 text-center">
-                  <div className="p-5 bg-[#B6E9D1] rounded-full" >
-                    <CircleCheckBig size={60} color="#12B76A" />
-
-
-                  </div>
-                  <h2 className="text-2xl font-semibold text-[#0A0A0A]">Saved Successfully</h2>
-                  <p className="text-[#6B6B6B] w-8/12">Your file has been successfully saved. Now it’s open and ready for members to start using.</p>
-                  <button
-                    className="bg-[#0057FF] text-white rounded-lg py-3 w-[452px] mt-4 hover:bg-blue-600 transition"
-                  >
-                    Continue
-                  </button>
-                </div>
-              )}
-
+              <SuccessStep />
+            )}
           </div>
         </div>
       </div>
@@ -449,5 +249,3 @@ const Register = () => {
 };
 
 export default Register;
-
-
