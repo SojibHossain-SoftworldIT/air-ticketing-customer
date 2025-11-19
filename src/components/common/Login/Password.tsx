@@ -22,7 +22,7 @@ const Password = ({ password, getPasswordStrengthText, resetLoading, getPassword
       setStep("success");
 
     } catch (err) {
-      toast.error("Reset failed");
+      toast.error(err + "Reset failed");
     }
   };
 

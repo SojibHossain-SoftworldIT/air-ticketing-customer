@@ -10,7 +10,6 @@ const BusSelectYourSeatsLeft = () => {
 
     const blockedMale = ["A1", "A2", "A4", "B1", "B2", "B4", "C1", "C2", "C4", "D1", "D4", "E2", "I1", "I2", "I4", "H1", "H4", "J1", "J2", "J4"];
     const blockedFemale = ["A3", "B3", "C3", "D3", "E3", "G3"];
-    const available = ["E1", "F1", "F2", "F3", "F4", "G1", "G2", "G4", "H2", "H3", "I3", "J3"];
 
     const handleSelect = (seat: any) => {
         if (![...blockedMale, ...blockedFemale].includes(seat)) {

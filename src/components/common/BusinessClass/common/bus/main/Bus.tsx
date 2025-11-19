@@ -5,8 +5,6 @@ import {
     Plane,
     Search,
     Repeat2,
-    Plus,
-    Minus
 } from "lucide-react";
 import OneWay from '../common/OneWay';
 import RoundTrip from '../common/RoundTrip';

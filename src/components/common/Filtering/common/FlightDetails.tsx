@@ -1,6 +1,6 @@
 import React from "react";
 import { FaPlaneDeparture, FaWifi, FaUtensils, FaTv, FaGlassWhiskey } from "react-icons/fa";
-import { IoIosAirplane, IoMdInformationCircleOutline } from "react-icons/io";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { Plane } from "lucide-react";
 

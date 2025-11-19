@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   Calendar,
   ArrowLeftRight,
-  Search,
   ChevronRight,
   PlaneTakeoff,
   PlaneLanding,

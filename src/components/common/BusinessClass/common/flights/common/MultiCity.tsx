@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React from 'react'
 import {
     Calendar,
     Plane,
@@ -8,11 +8,8 @@ import {
     Info,
   X, Plus,
 } from "lucide-react";
-import { FaChild } from 'react-icons/fa';
 
 const MultiCity = ( {flightList , removeFlight , addFlight } : any) => {
-      const [showDropdown1, setShowDropdown1] = useState(false);
-      const [showDropdown2, setShowDropdown2] = useState(false);
     
   return (
    <>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Otp = ({ otp, otpRefs, handleOtpChange,resetLoading, setOtp, setStep }: any) => {
+const Otp = ({ otp, otpRefs, handleOtpChange, resetLoading, setOtp, setStep }: any) => {
   return (
     <div className="w-full">
       <div className="flex flex-col 2xl:gap-6 items-center p-7">
@@ -28,8 +28,11 @@ const Otp = ({ otp, otpRefs, handleOtpChange,resetLoading, setOtp, setStep }: an
         </div>
 
         <p className="text-sm text-[#6B6B6B] mt-2 text-center">
-          Didn't get a code?{" "}
-          <button className="text-[#063BE8] font-medium hover:underline" onClick={() => setOtp(["", "", "", ""])}>
+          Didn&apos;t get a code?{" "}
+          <button
+            className="text-[#063BE8] font-medium hover:underline"
+            onClick={() => setOtp(["", "", "", ""])}
+          >
             Click to resend
           </button>
         </p>

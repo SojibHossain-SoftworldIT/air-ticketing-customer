@@ -2,7 +2,6 @@ import React from 'react'
 
 import { ArrowLeft } from 'lucide-react'
 import TopContainerPersonalDetails from '../../ContainerPersonalDetails/common/TopContainerPersonalDetails'
-import LeftPersonalDetails from '../../ContainerPersonalDetails/common/LeftPersonalDetails';
 import RightPaymentDetails from '../common/RightPaymentDetails';
 import Link from 'next/link';
 import LeftPaymentDetails from '../common/LeftPaymentDetails';

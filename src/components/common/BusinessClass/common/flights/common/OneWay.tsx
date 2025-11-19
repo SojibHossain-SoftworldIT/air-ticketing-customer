@@ -27,7 +27,6 @@ const OneWay = () => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [findTicket , setFindTicket] = useState(false);
 
   const [dateRange, setDateRange] = useState([
     {

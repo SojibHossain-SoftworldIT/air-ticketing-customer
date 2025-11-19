@@ -1,7 +1,7 @@
 "use client";
 
 import { useCompleteRegistrationMutation, useRegisterUserMutation, useVerifyRegistrationEmailMutation } from "@/redux/featured/auth/authApi";
-import { CircleCheckBig, Plane } from "lucide-react";
+import {Plane } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import "react-phone-input-2/lib/style.css";

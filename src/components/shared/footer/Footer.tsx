@@ -8,7 +8,6 @@ import {
   MapPin,
   Phone,
   Mail,
-  Plane,
 } from "lucide-react";
 import LeftTop from "../navber/LeftTop";
 

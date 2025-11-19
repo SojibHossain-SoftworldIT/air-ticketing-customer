@@ -3,7 +3,7 @@
 import { useForgotPasswordMutation, useLoginUserMutation, useResetPasswordMutation } from "@/redux/featured/auth/authApi";
 import { Plane } from "lucide-react";
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef} from "react";
 import { useRouter } from "next/navigation";
 import { toast } from 'react-hot-toast';
 import LoginCommon from "@/components/common/Login/Login";
@@ -23,8 +23,8 @@ const Login = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const otpRefs = useRef<HTMLInputElement[]>([]);
   const [loginUser, { isLoading: loginLoading, error: loginError }] = useLoginUserMutation();
-  const [forgotPassword, { isLoading: forgotLoading, error: forgotError }] = useForgotPasswordMutation();
-  const [resetPassword, { isLoading: resetLoading, error: resetError }] = useResetPasswordMutation();
+  const [forgotPassword, { isLoading: forgotLoading}] = useForgotPasswordMutation();
+  const [resetPassword, { isLoading: resetLoading}] = useResetPasswordMutation();
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const Login = () => {
       toast.success(res.message || "Check your email for reset link");
       setStep("otp")
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error( err + "Something went wrong");
     }
   };
 
