@@ -1,16 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 
-// const baseURL = process.env.NEXT_PUBLIC_BASE_API;
-// console.log(process.env.NEXT_PUBLIC_BASE_API);
-
-const baseURL =
-  process.env.NEXT_PUBLIC_BASE_API ||
-  'https://mega-mart-base-backend-api-2.vercel.app/api/v1';
-
-// const baseURL =
-//   process.env.NEXT_PUBLIC_BASE_API ||
-//   'https://mega-mart-base-backend.vercel.app/api/v1';
+const baseURL =process.env.NEXT_PUBLIC_BASE_API || "https://air-ticketing-server.vercel.app/api/v1"
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseURL,
