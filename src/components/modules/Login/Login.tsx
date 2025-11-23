@@ -89,11 +89,11 @@ const Login = () => {
 
       const token = response?.data.accessToken
       if (response.success) {
-        localStorage.setItem("authToken", token);
+        
+        dispatch(setToken(token));
+        router.push("/");
+        toast.success(response?.message || "Login successful!");
       }
-      dispatch(setToken(token));
-      router.push("/");
-      toast.success(response?.message || "Login successful!");
 
     } catch (err: any) {
       const errorMessage = err?.data?.message || err?.message || "Login failed. Please try again.";

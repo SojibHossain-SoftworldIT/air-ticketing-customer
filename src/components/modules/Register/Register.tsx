@@ -9,8 +9,8 @@ import { toast } from 'react-hot-toast';
 import EmailStep from "@/components/common/Register/EmailStep";
 import VerifyStep from "@/components/common/Register/VerifyStep";
 import ProfileStep from "@/components/common/Register/ProfileStep";
-import Password from "@/components/common/Login/Password";
 import SuccessStep from "@/components/common/Register/SuccessStep";
+import PassowedStep from "@/components/common/Register/PassowedStep";
 
 const Register = () => {
   const [step, setStep] = useState<"email" | "verify" | "profile" | "password" | "success">("email");
@@ -224,7 +224,7 @@ const Register = () => {
 
             {/* PASSWORD STEP */}
             {step === "password" && (
-              <Password
+              <PassowedStep
                 password={password}
                 setPassword={setPassword}
                 getPasswordStrengthColor={getPasswordStrengthColor}

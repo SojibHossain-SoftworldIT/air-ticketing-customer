@@ -67,7 +67,7 @@ const RightTop = () => {
                   <li>
                     <Link
                       onClick={() => setIsOpen(false)}
-                      href="/dashboard/profile"
+                      href="/dashbord/profile"
                       className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     >
                       My Profile
@@ -76,7 +76,7 @@ const RightTop = () => {
                   <li>
                     <Link
                       onClick={() => setIsOpen(false)}
-                      href="/dashboard"
+                      href="/dashbord"
                       className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                     >
                       Dashboard
