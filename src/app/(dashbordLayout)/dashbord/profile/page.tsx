@@ -44,11 +44,11 @@ const Page = () => {
       const payload = {
         firstName: nameParts.shift() || "",
         lastName: nameParts.join(" ") || "",
-        dateOfBirth: new Date(jsondata.dateOfBirth).toISOString(),
+        dateOfBirth: jsondata.dateOfBirth ? new Date(jsondata.dateOfBirth).toISOString() : null,
         phoneNumber: jsondata.phoneNumber,
         nationality: jsondata.nationality,
         passportNumber: jsondata.passportNumber,
-        passportExpiryDate: new Date(jsondata.passportExpiryDate).toISOString()
+        passportExpiryDate: jsondata.passportExpiryDate ? new Date(jsondata.passportExpiryDate).toISOString() : null,
       }
       await profileUpdate(payload).unwrap();
       refetch()
@@ -70,14 +70,14 @@ const Page = () => {
           <Skeleton height={40} />
         </div>
         <div className="mt-10">
-          <Skeleton height={30} width={250} /> {/* Passport Title */}
+          <Skeleton height={30} width={250} /> 
         </div>
         <div className="grid grid-cols-1 mt-18 md:grid-cols-3 gap-6">
           <Skeleton height={40} />
           <Skeleton height={40} />
           <Skeleton height={40} />
         </div>
-        <Skeleton height={40} width={150} /> {/* Button */}
+        <Skeleton height={40} width={150} /> 
       </div>
     )
   }
@@ -153,45 +153,45 @@ const Page = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-  <div>
-    <label className="block text-sm font-medium text-gray-600 mb-1">
-      Nationality
-    </label>
-    <input
-      name="nationality"
-      value={jsondata.nationality}
-      type="text"
-      onChange={hendleChange}
-      className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-    />
-  </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1">
+            Nationality
+          </label>
+          <input
+            name="nationality"
+            value={jsondata.nationality}
+            type="text"
+            onChange={hendleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+        </div>
 
-  <div>
-    <label className="block text-sm font-medium text-gray-600 mb-1">
-      Passport Number
-    </label>
-    <input
-      name="passportNumber"
-      value={jsondata.passportNumber}
-      type="text"
-      onChange={hendleChange}
-      className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-    />
-  </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1">
+            Passport Number
+          </label>
+          <input
+            name="passportNumber"
+            value={jsondata.passportNumber}
+            type="text"
+            onChange={hendleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+        </div>
 
-  <div>
-    <label className="block text-sm font-medium text-gray-600 mb-1">
-      Passport Expiry
-    </label>
-    <input
-      name="passportExpiryDate"
-      value={jsondata.passportExpiryDate}
-      type="date"
-      onChange={hendleChange}
-      className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-    />
-  </div>
-</div>
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1">
+            Passport Expiry
+          </label>
+          <input
+            name="passportExpiryDate"
+            value={jsondata.passportExpiryDate}
+            type="date"
+            onChange={hendleChange}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+        </div>
+      </div>
 
 
       <button
