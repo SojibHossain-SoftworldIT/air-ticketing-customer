@@ -7,8 +7,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentToken, logoutUser } from "@/redux/featured/auth/authSlice";
 import { useRouter } from "next/navigation";
 import { toast } from 'react-hot-toast';
+import { useGetMeQuery } from "@/redux/featured/auth/authApi";
+import Skeleton from "react-loading-skeleton";
 
 const RightTop = () => {
+  const { data: getUserdata, isLoading, refetch } = useGetMeQuery({});
+  const user = getUserdata?.data
   const [isOpen, setIsOpen] = useState(false);
   const token = useSelector(selectCurrentToken);
   const dispatch = useDispatch();
@@ -43,9 +47,23 @@ const RightTop = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="flex items-center space-x-1 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0028A8]">
-                <User color="white" />
-              </div>
+              {isLoading ? (
+                <Skeleton circle width={9} height={9} />
+              ) : (
+                <>
+                  {user?.profilePhoto ? (
+                    <img
+                      src={user.profilePhoto}
+                      alt="Profile Photo"
+                      className="w-9 h-9 rounded-full object-cover shadow-md"
+                    />
+                  ) : (
+                    <div className="w-9 h-9 bg-[#0028A8] text-white flex items-center justify-center rounded-full shadow-md">
+                      <User size={36} />
+                    </div>
+                  )}
+                </>
+              )}
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -7,17 +7,14 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedTab, Tab } from "@/redux/featured/tab/tabSlice";
 import { RootState } from "@/redux/store";
-import { useGetMeQuery } from "@/redux/featured/auth/authApi";
 
 const MainPage = () => {
+  
 
-  const {data , error, isLoading} =  useGetMeQuery({})
-  console.log(data)
 
   const dispatch = useDispatch();
   const selectedTab = useSelector((state: RootState) => state.tab.selectedTab);
   const [findTicket, setFindTicket] = useState(true);
-
   // Function to change selected tab
   const handleTabChange = (tab: Tab) => {
     dispatch(setSelectedTab(tab));

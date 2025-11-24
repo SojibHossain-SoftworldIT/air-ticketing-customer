@@ -17,7 +17,7 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-   completeRegistration: builder.mutation({
+    completeRegistration: builder.mutation({
       query: data => ({
         url: '/auth/complete-registration',
         method: 'POST',
@@ -62,6 +62,25 @@ export const authApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    profileUpdate: builder.mutation({
+      query: (data) => ({
+        url: "/user/update-my-profile",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Customer"],
+    }),
+    
+    profilePhotoUpdate: builder.mutation({
+      query: (data) => ({
+        url: "/user/update-my-profile",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Customer"],
+    })
+
   }),
 });
 
@@ -69,11 +88,13 @@ export const {
   useLoginUserMutation,
   useRegisterUserMutation,
   useCompleteRegistrationMutation,
-  useVerifyRegistrationEmailMutation, 
+  useVerifyRegistrationEmailMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useLogoutMutation,
   useGetMeQuery,
+  useProfileUpdateMutation,
+  useProfilePhotoUpdateMutation
 } = authApi;
 
 // code Writen By Rony 

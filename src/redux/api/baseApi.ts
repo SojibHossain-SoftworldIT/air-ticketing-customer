@@ -5,14 +5,15 @@ const baseURL =process.env.NEXT_PUBLIC_BASE_API || "https://air-ticketing-server
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseURL,
+  
   credentials: "include",
-  prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.token;
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`); 
-    }
-    return headers;
-  },
+  // prepareHeaders: (headers, { getState }) => {
+  //   const token = (getState() as RootState).auth.token;
+  //   if (token) {
+  //     headers.set("Authorization", `Bearer ${token}`); 
+  //   }
+  //   return headers;
+  // },
 });
 
 export const baseApi = createApi({
