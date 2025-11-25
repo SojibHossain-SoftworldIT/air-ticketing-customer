@@ -5,8 +5,10 @@ import AvailableFilters from '../common/Available'
 import FlightCard from '../common/FilterCart'
 import { Tab } from '@/components/modules/Home/Hero'
 import BusCart from '../common/BusCart'
+import { useGetFlightsQuery } from '@/redux/featured/flightAPI/flight'
 
 const Filtering = ({ selectedTab }: { selectedTab: Tab }) => {
+    const {data : flightsData, error, isLoading } = useGetFlightsQuery({})
   const flights = [
     {
       id: 1,
@@ -75,6 +77,33 @@ const Filtering = ({ selectedTab }: { selectedTab: Tab }) => {
       ],
     },
   ];
+  const apiFlights =
+    flightsData?.data?.map((item: any, index: number) => ({
+      id: index + 1,
+      airline: item.name,
+      flightCode: item.iataCode,
+      classType: "Economy",
+      from: item.iataCode,
+      fromCity: item.name,
+      to: "CXB", // API does not provide destination
+      toCity: item.address?.countryName || "",
+      depart: "11:00",
+      arrive: "12:10",
+      duration: "1h 10m",
+      price: 1000, 
+      seatsLeft: 5,
+      aircraft: "Boeing 737-800",
+      refundable: false,
+      tags: ["Best Value", "Direct Flight"],
+      amenities: [  "20kg Check-in",
+        "Meal Included",
+        "Wi-Fi Available",
+        "Refundable",],
+      geoCode: item.geoCode,
+      country: item.address?.countryName,
+      region: item.address?.regionCode,
+    })) || []
+
   const [compareList, setCompareList] = useState([]);
   const [compareMode, setCompareMode] = useState(false);
 
@@ -93,7 +122,7 @@ const Filtering = ({ selectedTab }: { selectedTab: Tab }) => {
               <TopQuickFilters selectedTab={selectedTab} />
               <AvailableFilters compareMode={compareMode} setCompareMode={setCompareMode} flights={flights} compareList={compareList} setCompareList={setCompareList} />
               <FlightCard
-                flights={flights}
+                flights={apiFlights.length > 0 ? apiFlights : flights}
                 selectedFlight={selectedFlight}
                 setSelectedFlight={setSelectedFlight}
                 compareList={compareList}

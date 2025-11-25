@@ -7,10 +7,13 @@ import {
   PlaneTakeoff,
   PlaneLanding,
   CalendarCheck,
+  Search,
 } from "lucide-react";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import { useGetFlightsQuery } from "@/redux/featured/flightAPI/flight";
+import toast from "react-hot-toast";
 
 const popularDestinations = [
   { city: "Dhaka", code: "DAC", country: "Bangladesh" },
@@ -21,13 +24,15 @@ const popularDestinations = [
   { city: "Bangkok", code: "BKK", country: "Thailand" },
 ];
 
-const OneWay = () => {
+const OneWay = ({ setFindTicket }: any) => {
   const [from1, setFrom1] = useState("");
   const [from2, setFrom2] = useState("");
+  const [originCode, setOriginCode] = useState("");
+  const [destinationCode, setDestinationCode] = useState("");
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
-
+  const [fetchNow, setFetchNow] = useState(false);
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -36,14 +41,58 @@ const OneWay = () => {
     },
   ]);
 
+  // Format date for API (YYYY-MM-DD)
+  const formatDateForAPI = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    console.log(`${year}-${month}-${day}` )
+    return `${year}-${month}-${day}`;
+  };
+
+
+  // Only fetch flights when all required fields are filled
+  const handleclick = () => {
+    if (originCode && destinationCode && dateRange[0].startDate) {
+      setFetchNow(true);
+    }
+  }
+
+
+
+  const {error, isLoading } = useGetFlightsQuery(
+    {
+      origin: originCode,
+      destination: destinationCode,
+      departureDate: formatDateForAPI(dateRange[0].startDate),
+    },
+    {
+      skip: !fetchNow, 
+    }
+  );
+
   const handleSelect1 = (city: string, code: string) => {
     setFrom1(`${city} (${code})`);
+    setOriginCode(code);
     setShowDropdown1(false);
   };
 
   const handleSelect2 = (city: string, code: string) => {
     setFrom2(`${city} (${code})`);
+    setDestinationCode(code);
     setShowDropdown2(false);
+  };
+
+  const handleSwapLocations = () => {
+    // Swap display values
+    const tempFrom1 = from1;
+    setFrom1(from2);
+    setFrom2(tempFrom1);
+
+    // Swap codes
+    const tempCode = originCode;
+    setOriginCode(destinationCode);
+    setDestinationCode(tempCode);
   };
 
   return (
@@ -55,7 +104,7 @@ const OneWay = () => {
             Departure From
           </label>
           <div className="flex gap-2 items-center border border-gray-300 rounded-lg px-3 py-2 bg-white relative">
-             <PlaneTakeoff  size={16} color="black" className="mr-2" />
+            <PlaneTakeoff size={16} color="black" className="mr-2" />
             <input
               type="text"
               placeholder="Select city"
@@ -66,6 +115,7 @@ const OneWay = () => {
             />
             <button
               type="button"
+              onClick={handleSwapLocations}
               className="absolute -right-8 top-1/2 z-1 -translate-y-1/2 bg-[#E6EAF6] p-2 rounded-full shadow-sm hover:bg-blue-700"
             >
               <ArrowLeftRight size={20} color="#0028A8" />
@@ -112,7 +162,7 @@ const OneWay = () => {
             Arrival To
           </label>
           <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 bg-white">
-            <PlaneLanding   size={16} color="black" className="mr-2" />
+            <PlaneLanding size={16} color="black" className="mr-2" />
             <input
               type="text"
               placeholder="Dubai (DXB)"
@@ -181,7 +231,7 @@ const OneWay = () => {
                   setDateRange([
                     {
                       startDate: date,
-                      endDate: date, 
+                      endDate: date,
                       key: "selection",
                     },
                   ]);
@@ -221,7 +271,26 @@ const OneWay = () => {
         </div>
       </div>
 
-      
+
+      {error && (
+        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-800 font-medium">❌ Error loading flights</p>
+          <p className="text-sm text-red-600 mt-1">Please try again or check your connection.</p>
+        </div>
+      )}
+      <div className="flex justify-end mt-8">
+        <button onClick={() => {
+          if (!originCode || !destinationCode) {
+            toast.error("Please select both cities.");
+            return;
+          }
+          handleclick();
+          setFindTicket((e: any) => !e);
+        }} className="bg-[#0028A8] hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-md flex items-center gap-2">
+          <Search size={18} /> Find Ticket
+        </button>
+      </div>
+
     </>
   );
 };
