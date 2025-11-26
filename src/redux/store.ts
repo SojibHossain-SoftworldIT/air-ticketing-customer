@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./api/baseApi";
 import authReducer from "@/redux/featured/auth/authSlice";
 import tabReducer from "@/redux/featured/tab/tabSlice";
+import flightReducer from "@/redux/featured/flightAPI/flightSlice";
 
 import {
   PERSIST,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   auth: authReducer,
   tab: tabReducer,
+  flight: flightReducer,
 });
 
 const persistConfig = {

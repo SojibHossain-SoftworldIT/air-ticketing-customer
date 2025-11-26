@@ -91,7 +91,7 @@ const FlightCard = ({ flights, selectedFlight, setSelectedFlight, compareList , 
             </div>
 
             {/* Times */}
-            <div className="flex-1 flex items-center justify-center px-8">
+            <div className="w-[60%] flex items-center justify-center px-8">
               <div className="text-start">
                 <p className="text-2xl font-normal text-gray-900">{flight.depart}</p>
                 <p className="text-sm font-normal text-gray-600 mt-1">{flight.from}</p>
@@ -110,7 +110,7 @@ const FlightCard = ({ flights, selectedFlight, setSelectedFlight, compareList , 
 
               <div className="text-end">
                 <p className="text-2xl font-normal text-gray-900">{flight.arrive}</p>
-                <p className="text-sm font-medium text-gray-600 mt-1">{flight.to}</p>
+                <p className="text-sm font-normal text-gray-600 mt-1">{flight.to}</p>
                 <p className="text-xs text-gray-500">{flight.toCity}</p>
               </div>
             </div>

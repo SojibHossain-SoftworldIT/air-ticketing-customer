@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ArrowLeftRight,
   Info,
@@ -12,19 +12,13 @@ import {
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { useGetFlightsQuery } from "@/redux/featured/flightAPI/flight";
+import { useGetFlightRoutesQuery, useGetFlightsQuery } from "@/redux/featured/flightAPI/flight";
 import toast from "react-hot-toast";
-
-const popularDestinations = [
-  { city: "Dhaka", code: "DAC", country: "Bangladesh" },
-  { city: "Cox's Bazar", code: "CXB", country: "Bangladesh" },
-  { city: "Chittagong", code: "CGP", country: "Bangladesh" },
-  { city: "Dubai", code: "DXB", country: "UAE" },
-  { city: "Singapore", code: "SIN", country: "Singapore" },
-  { city: "Bangkok", code: "BKK", country: "Thailand" },
-];
+import { useDispatch } from "react-redux";
+import { setAllFlights } from "@/redux/featured/flightAPI/flightSlice";
 
 const OneWay = ({ setFindTicket }: any) => {
+    const dispatch = useDispatch();
   const [from1, setFrom1] = useState("");
   const [from2, setFrom2] = useState("");
   const [originCode, setOriginCode] = useState("");
@@ -33,6 +27,14 @@ const OneWay = ({ setFindTicket }: any) => {
   const [showDropdown2, setShowDropdown2] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [fetchNow, setFetchNow] = useState(false);
+  const { data: flightRoutesData } = useGetFlightRoutesQuery({});
+  const popularDestinationsFromAPI = flightRoutesData?.data || [];
+  const popularDestinations = popularDestinationsFromAPI.length > 0 ? popularDestinationsFromAPI.map((route: any) => ({
+    city: route.name,
+    code: route.iataCode,
+    country: route.address?.countryName,
+  })) : popularDestinationsFromAPI;
+
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -46,7 +48,6 @@ const OneWay = ({ setFindTicket }: any) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-    console.log(`${year}-${month}-${day}` )
     return `${year}-${month}-${day}`;
   };
 
@@ -58,18 +59,29 @@ const OneWay = ({ setFindTicket }: any) => {
     }
   }
 
+  console.log(originCode)
+  console.log(destinationCode)
+  console.log(formatDateForAPI(dateRange[0].startDate))
 
-
-  const {error, isLoading } = useGetFlightsQuery(
+  const { data, error, isLoading } = useGetFlightsQuery(
     {
-      origin: originCode,
-      destination: destinationCode,
+      originLocationCode: originCode,
+      destinationLocationCode: destinationCode,
       departureDate: formatDateForAPI(dateRange[0].startDate),
     },
     {
-      skip: !fetchNow, 
+      skip:
+        !fetchNow ||
+        !originCode ||
+        !destinationCode ||
+        !dateRange[0]?.startDate,
     }
   );
+  useEffect(() => {
+    if (data) {
+      dispatch(setAllFlights(data));
+    }
+  }, [data, dispatch]);
 
   const handleSelect1 = (city: string, code: string) => {
     setFrom1(`${city} (${code})`);
@@ -132,7 +144,7 @@ const OneWay = ({ setFindTicket }: any) => {
                 <p>Popular Destinations</p>
               </div>
 
-              {popularDestinations.map((dest, idx) => (
+              {popularDestinations.map((dest: any, idx: any) => (
                 <div key={idx} className='px-2 hover:bg-blue-100'>
                   <div
                     key={dest.code}
@@ -183,7 +195,7 @@ const OneWay = ({ setFindTicket }: any) => {
                 <p>Popular Destinations</p>
               </div>
 
-              {popularDestinations.map((dest, idx) => (
+              {popularDestinations.map((dest: any, idx: any) => (
                 <div key={idx} className='px-2 hover:bg-blue-100'>
                   <div
                     key={dest.code}
@@ -271,13 +283,6 @@ const OneWay = ({ setFindTicket }: any) => {
         </div>
       </div>
 
-
-      {error && (
-        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-800 font-medium">❌ Error loading flights</p>
-          <p className="text-sm text-red-600 mt-1">Please try again or check your connection.</p>
-        </div>
-      )}
       <div className="flex justify-end mt-8">
         <button onClick={() => {
           if (!originCode || !destinationCode) {
@@ -285,7 +290,7 @@ const OneWay = ({ setFindTicket }: any) => {
             return;
           }
           handleclick();
-          setFindTicket((e: any) => !e);
+          setFindTicket((e: any) => false);
         }} className="bg-[#0028A8] hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-md flex items-center gap-2">
           <Search size={18} /> Find Ticket
         </button>
